@@ -91,14 +91,42 @@ async def get_profile(username: str):
 BADGES_QUERY = """
 query getBadges($username: String!) {
   matchedUser(username: $username) {
+
+    username
+
     badges {
-      displayName
+      id
       icon
+      displayName
+      shortName
+      category
+      creationDate
     }
+
+    activeBadge {
+      id
+      icon
+      displayName
+      shortName
+      category
+      creationDate
+    }
+
   }
 }
 """
 
 async def get_badges(username: str):
     data = await execute_query(BADGES_QUERY, {"username": username})
-    return data["data"]["matchedUser"]["badges"]
+
+    if "data" not in data:
+        return {"error": "User not found", "details": data}
+    
+    print(data)
+    
+    user = data["data"]["matchedUser"]
+
+    return {
+        "activeBadge": user["activeBadge"],
+        "badges": user["badges"]
+    }
