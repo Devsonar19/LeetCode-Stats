@@ -47,7 +47,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               final data = snapshot.data!;
               final profile = data["profile"]["profile"];
 
-
+              if (data["profile"] == null) {
+                return const Center(child: Text("User not found"));
+              }
 
               return Padding(
                 padding: const EdgeInsets.all(20),
