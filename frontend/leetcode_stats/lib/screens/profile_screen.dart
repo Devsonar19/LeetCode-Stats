@@ -139,7 +139,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             badges[0]["icon"],
                             height: 80,
                           ),
-
+                          const SizedBox(width: 5),
+                          Image.network(
+                            badges[1]["icon"].startsWith("/")
+                                ? "https://leetcode.com${badges[1]["icon"]}"
+                                : badges[1]["icon"],
+                            height: 80,
+                          )
                         ]
                       )
                     else
