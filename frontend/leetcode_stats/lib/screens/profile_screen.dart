@@ -145,13 +145,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ? "https://leetcode.com${badges[1]["icon"]}"
                                 : badges[1]["icon"],
                             height: 80,
-                          )
+                          ),
                         ]
                       )
                     else
                       const Text("No badge yet"),
 
+                    const SizedBox(height: 20),
 
+                    Text(
+                      "Active Badges",
+                      style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Image.network(
+                          data["profile"]["activeBadge"]["icon"],
+                          height: 80,
+                        ),
+                      ],
+                    ),
         
         
                     const SizedBox(height: 20),
