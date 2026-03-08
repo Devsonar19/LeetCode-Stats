@@ -56,8 +56,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-        
-                    Image.network(profile["userAvatar"], height: 80),
+                    Row(
+                      children: [
+                        Text(
+                          "Hello, ",
+                          style: const TextStyle(
+                              fontSize: 30
+                          ),
+                        ),
+                        Text(
+                          "${profile["realName"]}",
+                          style: const TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    Image.network(profile["userAvatar"], height: 100),
         
                     const SizedBox(height: 20),
         
