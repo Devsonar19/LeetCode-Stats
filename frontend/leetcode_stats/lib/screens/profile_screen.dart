@@ -46,6 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
               final data = snapshot.data!;
               final profile = data["profile"]["profile"];
+              final badges = data["profile"]["badges"];
 
               if (data["profile"] == null) {
                 return const Center(child: Text("User not found"));
@@ -120,6 +121,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ],
                     ),
+
+                    const SizedBox(height: 10),
+
+                    Text(
+                      "Badges",
+                      style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+
+                    if (badges != null && badges.isNotEmpty)
+                      Row(
+                        children: [
+                          Image.network(
+                            badges[0]["icon"],
+                            height: 80,
+                          ),
+
+                        ]
+                      )
+                    else
+                      const Text("No badge yet"),
+
+
         
         
                     const SizedBox(height: 20),
