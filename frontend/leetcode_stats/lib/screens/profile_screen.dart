@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/api_service.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -29,7 +30,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
       builder: (context, asyncSnapshot) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text("LeetCode Profile"),
+            title: Text(
+                "LeetCode Stats",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                fontFamily: GoogleFonts.brunoAceSc().fontFamily,
+              ),
+            ),
+            centerTitle: true,
+            actions: [
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.account_circle_rounded)
+              ),
+            ],
+          ),
+          drawer: Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                DrawerHeader(
+                    child: Icon(Icons.person, size: 50),
+                ),
+                ListTile(
+                  trailing: Icon(Icons.login_rounded),
+                  title: Text("Logout"),
+                  onTap: () {},
+                ),
+              ]
+            ),
           ),
           body: FutureBuilder(
             future: profileData,
