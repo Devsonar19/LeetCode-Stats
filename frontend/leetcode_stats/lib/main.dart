@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:leetcode_stats/responsive/mobile_scaffold.dart';
-import 'package:leetcode_stats/responsive/responsive_layout.dart';
-import 'package:leetcode_stats/responsive/tablet_scaffold.dart';
 import 'package:leetcode_stats/screens/profile_screen.dart';
-
-import 'desktop_scaffold.dart' show DesktopScaffold;
 
 void main() {
   runApp(const MyApp());
