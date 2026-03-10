@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:leetcode_stats/features/dashboard/view/dashboard.dart';
 import 'package:leetcode_stats/screens/profile_screen.dart';
 
 void main() {
@@ -12,12 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-        home: ProfileScreen(),
-        // ResponsiveLayout(
-        //   mobileScaffold: const MobileScaffold(),
-        //   tabletScaffold: const TabletScaffold(),
-        //   desktopScaffold: const DesktopScaffold(),
-        // ),
+        home: DashboardScreen(),
     );
   }
 }
