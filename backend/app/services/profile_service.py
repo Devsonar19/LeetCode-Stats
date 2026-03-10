@@ -1,4 +1,4 @@
-from app.services.graphql_client import execute_query
+from app.services.graphql.graphql_client import execute_query
 
 PROFILE_QUERY = """
 query getUserDashboard($username: String!) {

@@ -1,4 +1,4 @@
-CACHE_DURATION =  600
+CACHE_DURATION =  600 #seconds
 
 DIFFICULTY_LEVELS = [
     "Easy",
