@@ -3,7 +3,7 @@ from app.core.config import LEETCODE_GRAPHQL_URL
 
 async def execute_query(query: str, variables: dict):
 
-    async with httpx.AsyncClient() as client:
+    async with httpx.AsyncClient(timeout=10.0) as client:
         response = await client.post(
             LEETCODE_GRAPHQL_URL,
             json={
