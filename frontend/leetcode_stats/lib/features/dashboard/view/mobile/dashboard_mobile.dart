@@ -61,7 +61,13 @@ class _DashboardMobileState extends State<DashboardMobile> {
 
                 const SizedBox(height: 10),
 
-                Image.network(profile["userAvatar"], height: 100),
+                Image.network(
+                    profile["userAvatar"],
+                    height: 90,
+                  errorBuilder: (context, error, stackTrace){
+                      return Icon(Icons.person, size: 50 );
+                  }
+                ),
 
                 const SizedBox(height: 20),
 
