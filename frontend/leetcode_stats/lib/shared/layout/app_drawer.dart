@@ -21,14 +21,11 @@ class AppDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primaryContainer,
-            ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CircleAvatar(
-                    radius: 30,
+                    radius: 40,
                     backgroundImage: profile != null
                         ? NetworkImage(profile["userAvatar"])
                         : null,
@@ -37,7 +34,7 @@ class AppDrawer extends StatelessWidget {
                         : null,
                   ),
 
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 20),
 
                   Text(
                     userData?["username"] ?? "Guest",
