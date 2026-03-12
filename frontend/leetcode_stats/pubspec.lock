@@ -171,6 +171,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.2"
+  leetcode_heatmap:
+    dependency: "direct main"
+    description:
+      name: leetcode_heatmap
+      sha256: df1408e8a3e4b10a2e3009d983d2dbe87fc77d2a87fc8385313316a37f59d02d
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.1"
   lints:
     dependency: transitive
     description:

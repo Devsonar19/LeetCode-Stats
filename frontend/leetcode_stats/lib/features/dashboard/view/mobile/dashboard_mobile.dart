@@ -1,7 +1,9 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:leetcode_heatmap/leetcode_heatmap.dart';
 import 'package:leetcode_stats/features/dashboard/widgets/stats_card.dart';
+import 'package:leetcode_stats/features/dashboard/widgets/submission_heatmap.dart';
 
 import '../../../../services/api_service.dart';
 import '../../../../shared/layout/app_drawer.dart';
@@ -105,7 +107,13 @@ class _DashboardMobileState extends State<DashboardMobile> {
                     },
                   ),
 
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
+
+                  SubmissionHeatmap(
+                      username: user["username"],
+                      submissionCalender: user["submissionCalendar"],
+                  ),
+
 
                   Text(
                     "Rank: ${profile["ranking"]}",
