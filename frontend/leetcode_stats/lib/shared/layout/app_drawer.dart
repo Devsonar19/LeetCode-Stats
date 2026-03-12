@@ -20,31 +20,39 @@ class AppDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          DrawerHeader(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CircleAvatar(
-                    radius: 40,
-                    backgroundImage: profile != null
-                        ? NetworkImage(profile["userAvatar"])
-                        : null,
-                    child: profile == null
-                        ? const Icon(Icons.person, size: 30,)
-                        : null,
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  Text(
-                    userData?["username"] ?? "Guest",
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
+          SizedBox(
+            height: 200,
+            child: DrawerHeader(
+              margin: EdgeInsets.all(10),
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                border: null,
               ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CircleAvatar(
+                      radius: 40,
+                      backgroundImage: profile != null
+                          ? NetworkImage(profile["userAvatar"])
+                          : null,
+                      child: profile == null
+                          ? const Icon(Icons.person, size: 40,)
+                          : null,
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    Text(
+                      userData?["username"] ?? "Guest",
+                      style: const TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+            ),
           ),
 
           ListTile(
@@ -63,12 +71,18 @@ class AppDrawer extends StatelessWidget {
                 onToggleTheme();
               }
           ),
-
-          const Divider(),
+          
+          ListTile(
+            leading: Icon(Icons.code),
+            title: const Text("About Developer"),
+            onTap: (){
+              //opens about developer page
+            },
+          ),
 
           ListTile(
-            leading: Icon(Icons.computer),
-            title: const Text("About Developer"),
+            leading: Icon(Icons.logout),
+            title: const Text("Logout"),
             onTap: (){
               //opens about developer page
             },

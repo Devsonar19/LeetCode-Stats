@@ -54,27 +54,17 @@ class _DashboardMobileState extends State<DashboardMobile> {
               onToggleTheme: (){},
             ),
             body: ListView(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(5),
                 children: [
                   Text(
                     "Hello, ${profile["realName"]}",
                     style: const TextStyle(
-                      fontSize: 30,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
 
-                  const SizedBox(height: 10),
-
-                  Image.network(
-                      profile["userAvatar"],
-                      height: 90,
-                      errorBuilder: (context, error, stackTrace){
-                        return Icon(Icons.person, size: 50 );
-                      }
-                  ),
-
-                  const SizedBox(height: 20),
+                  // const SizedBox(height: 20),
 
                   Text(
                     "Rank: ${profile["ranking"]}",
