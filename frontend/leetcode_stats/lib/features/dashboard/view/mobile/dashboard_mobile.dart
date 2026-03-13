@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:leetcode_heatmap/leetcode_heatmap.dart';
+import 'package:leetcode_stats/features/dashboard/widgets/badges_card.dart';
 import 'package:leetcode_stats/features/dashboard/widgets/stats_card.dart';
 import 'package:leetcode_stats/features/dashboard/widgets/submission_heatmap.dart';
 
@@ -112,6 +113,10 @@ class _DashboardMobileState extends State<DashboardMobile> {
                   SubmissionHeatmap(
                       username: user["username"],
                       submissionCalender: user["submissionCalendar"],
+                  ),
+
+                  BadgesCard(
+                      badges: user["badges"] ?? [],
                   ),
 
                 ]
