@@ -77,17 +77,17 @@ class _DashboardMobileState extends State<DashboardMobile> {
               onToggleTheme: (){},
             ),
             body: ListView(
-                padding: const EdgeInsets.all(5),
+                padding: const EdgeInsets.all(10),
                 children: [
                   Text(
                     "Hello, ${profile["realName"]}",
                     style: const TextStyle(
-                      fontSize: 20,
+                      fontSize: 30,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
 
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 5),
 
                   StatsCard(
                     stats: {
@@ -112,25 +112,6 @@ class _DashboardMobileState extends State<DashboardMobile> {
                   SubmissionHeatmap(
                       username: user["username"],
                       submissionCalender: user["submissionCalendar"],
-                  ),
-
-
-                  Text(
-                    "Rank: ${profile["ranking"]}",
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  Text(
-                    "Daily Question \n${data["activeDailyCodingChallengeQuestion"]["question"]["title"]}",
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
                   ),
 
                 ]

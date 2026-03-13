@@ -9,7 +9,7 @@ class ApiService {
 
   static Future<Map<String, dynamic>> fetchProfile(String username) async {
     final response = await http.get(
-      Uri.parse("$baseUrlForLinux/profile/$username"),
+      Uri.parse("$baseUrlForAndroid/profile/$username"),
     );
 
 

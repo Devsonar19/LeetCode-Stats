@@ -157,7 +157,7 @@ class StatsCard extends StatelessWidget {
                 color: Colors.white
             ),
           ),
-        )
+        ),
       ],
     );
   }

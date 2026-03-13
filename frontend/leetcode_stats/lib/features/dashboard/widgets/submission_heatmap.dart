@@ -80,15 +80,20 @@ class SubmissionHeatmap extends StatelessWidget {
             width: double.infinity,
             child: SingleChildScrollView(
               child: LeetCodeHeatmap(
-                  username: username,
-                  cellSize: 14,
-                  cellSpacing: 2,
-                  showStats: false,
-                  showLegend: true,
-                  autoScrollToEnd: true,
+                username: username,
+                cellSize: 14,
+                cellSpacing: 2,
+                showStats: false,
+                showLegend: true,
+                autoScrollToEnd: true,
+                weekSpacing: 0,
+                showBorder: true,
+                showDayLabels: true,
               ),
             ),
-          )
+          ),
+
+
         ],
       ),
     );
