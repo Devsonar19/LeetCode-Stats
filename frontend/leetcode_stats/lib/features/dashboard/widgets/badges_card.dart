@@ -9,7 +9,7 @@ class BadgesCard extends StatelessWidget {
     final recentBadges = badges.take(5).toList();
 
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16),
@@ -48,7 +48,7 @@ class BadgesCard extends StatelessWidget {
           const SizedBox(height: 10),
 
           SizedBox(
-            height: 100,
+            height: 150,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               itemCount: recentBadges.length,
@@ -58,26 +58,29 @@ class BadgesCard extends StatelessWidget {
                 final badge = recentBadges[index];
 
                 String icon = badge["icon"]?.toString() ?? "";
+                String name = badge["displayName"]?.toString() ?? "Badge";
 
                 /// Fixing broken URLs
-                if (!icon.startsWith("http")) {
+                if (icon.isNotEmpty && !icon.startsWith("http")) {
                   icon = "https://leetcode.com$icon";
                 }
 
                 return Column(
                   children: [
                     Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade800,
-                        borderRadius: BorderRadius.circular(15),
-                      ),
+                      padding: const EdgeInsets.all(5),
 
-                      child: Image.network(
-                        icon,
-                        height: 60,
-                        width: 60,
-                      ),
+
+                      child: icon.isNotEmpty
+                        ? Image.network(
+                            icon,
+                            height: 80,
+                            width: 80,
+                            errorBuilder: (context, error, stackTrace){
+                              return const Icon(Icons.badge, size: 60);
+                            },
+                          )
+                        : const Icon(Icons.badge, size: 60),
                     ),
 
                     const SizedBox(height: 5),
@@ -85,11 +88,11 @@ class BadgesCard extends StatelessWidget {
                     SizedBox(
                       width: 60,
                       child: Text(
-                        badge["displayNames"],
+                        name,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
-                          fontSize: 12,
+                          fontSize: 10,
                         ),
                       ),
                     ),

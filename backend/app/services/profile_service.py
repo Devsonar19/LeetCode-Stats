@@ -36,6 +36,7 @@ query getUserDashboard($username: String!) {
         submissions
       }
     }
+    submissionCalendar
   }
 
   recentSubmissionList(username: $username, limit: 20) {

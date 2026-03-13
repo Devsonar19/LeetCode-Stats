@@ -18,7 +18,7 @@ class DashboardMobile extends StatefulWidget {
 
 class _DashboardMobileState extends State<DashboardMobile> {
 
-  late Future<Map<String,dynamic>>? profileData;
+  late Future<Map<String,dynamic>> profileData;
 
   @override
   void initState() {
@@ -44,8 +44,8 @@ class _DashboardMobileState extends State<DashboardMobile> {
           }
 
           final data = snapshot.data!;
-          final user = data["profile"];
-          final profile = user["profile"];
+          final user = data["profile"] ?? {};
+          final profile = user["profile"] ?? {};
 
           final submitStats = user["submitStatsGlobal"];
           final solvedStats = submitStats?["acSubmissionNum"];
@@ -81,7 +81,7 @@ class _DashboardMobileState extends State<DashboardMobile> {
                 padding: const EdgeInsets.all(10),
                 children: [
                   Text(
-                    "Hello, ${profile["realName"]}",
+                    "Hello, ${profile["realName"] ?? "Coder"}",
                     style: const TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
@@ -111,12 +111,14 @@ class _DashboardMobileState extends State<DashboardMobile> {
                   const SizedBox(height: 10),
 
                   SubmissionHeatmap(
-                      username: user["username"],
-                      submissionCalender: user["submissionCalendar"],
+                      username: user["username"] ?? "",
+                      submissionCalender: user["submissionCalendar"] ?? {},
                   ),
 
+                  const SizedBox(height: 10),
+
                   BadgesCard(
-                      badges: user["badges"] ?? [],
+                      badges: (user["badges"] ?? []) as List,
                   ),
 
                 ]
