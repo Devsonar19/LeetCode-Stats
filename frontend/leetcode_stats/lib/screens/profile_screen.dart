@@ -14,7 +14,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   void loadProfile(String username) {
     setState(() {
-      profileData = ApiService.fetchProfile(username);
+      profileData = ApiService.fetchProfileForWeb(username);
     });
   }
   @override

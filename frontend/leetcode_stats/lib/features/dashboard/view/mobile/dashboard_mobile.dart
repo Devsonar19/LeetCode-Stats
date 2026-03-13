@@ -22,7 +22,7 @@ class _DashboardMobileState extends State<DashboardMobile> {
   @override
   void initState() {
     super.initState();
-    profileData = ApiService.fetchProfile("Dev_Sonar19");
+    profileData = ApiService.fetchProfileForApp("Dev_Sonar19");
   }
 
   @override

@@ -17,7 +17,7 @@ class _DashboardTabletState extends State<DashboardTablet> {
 
   @override
   void initState() {
-    profileData = ApiService.fetchProfile("Dev_Sonar19");
+    profileData = ApiService.fetchProfileForApp("Dev_Sonar19");
     super.initState();
   }
 
