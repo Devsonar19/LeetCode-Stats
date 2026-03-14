@@ -8,7 +8,6 @@ class RecentSolvedCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(10),
-
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(10),
@@ -22,15 +21,24 @@ class RecentSolvedCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "Recent Solved",
-            style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-            ),
+          Row(
+            children: [
+              const Text(
+                "Recent Solved",
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const Spacer(),
+              IconButton(
+                onPressed: (){},
+                icon: const Icon(Icons.arrow_forward),
+              ),
+            ],
           ),
 
-          const SizedBox(height: 10),
+          // const SizedBox(height: 10),
 
           ListView.builder(
             shrinkWrap: true,
@@ -39,9 +47,10 @@ class RecentSolvedCard extends StatelessWidget {
               itemBuilder: (context, index){
                 final q = ques[index];
                 return ListTile(
-                  title: Text(q["title"] ?? "Error in Title"),
+                  title: Text(
+                      q["title"] ?? "Error in Title",
+                  ),
                   subtitle: Text(q["difficulty"] ?? ""),
-                  trailing: const Icon(Icons.arrow_forward,  size: 10),
                 );
               }
           ),
