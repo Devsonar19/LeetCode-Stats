@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:leetcode_stats/features/profile_panel/view/profile_detail_screen.dart';
 
 class AppDrawer extends StatelessWidget {
   final Map<String, dynamic>? userData;
@@ -59,7 +60,14 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.person),
             title: const Text("Profile"),
             onTap: (){
-              //opens secondary profile page
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (_) => ProfileDetailsScreen(
+                        username: userData?["username"],
+                    ),
+                ),
+              );
             },
           ),
 

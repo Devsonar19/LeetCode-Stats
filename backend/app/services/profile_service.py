@@ -79,12 +79,18 @@ async def get_profile(username: str):
     
     print(data)
     
+    recent = await execute_query(
+      RECENT_SOLVED_QUERY,
+      {"username":username}
+    )
+    recent_solved = recent.get("data", {}).get("recentAcSubmissionList", [])
 
     result = data["data"]
     return{
       "profile":  result["matchedUser"],
+      "recentSolved": recent_solved,
       "allQuestionsCount": result["allQuestionsCount"],
-      "activeDailyCodingChallengeQuestion": result["activeDailyCodingChallengeQuestion"]
+      "activeDailyCodingChallengeQuestion": result["activeDailyCodingChallengeQuestion"],
     }
 
 BADGES_QUERY = """
@@ -129,3 +135,14 @@ async def get_badges(username: str):
         "activeBadge": user["activeBadge"],
         "badges": user["badges"]
     }
+
+
+RECENT_SOLVED_QUERY = """
+query recentSolved($username: String!) {
+  recentAcSubmissionList(username: $username, limit: 5) {
+    title
+    titleSlug
+  }
+}
+"""
+
