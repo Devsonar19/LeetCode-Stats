@@ -5,4 +5,14 @@ class ProfileService {
     final response = await ApiService.fetchProfileForApp(username);
     return response;
   }
+  Future<Map<String, dynamic>> fetchProfile(String username) async {
+    final response = await ApiService.fetchProfileForApp(username);
+    return response;
+  }
+
+  Future<Map<String, dynamic>> fetchDailyQuestion(String username) async {
+    final response = await ApiService.fetchProfileForApp(username);
+    return response;
+  }
 }
+

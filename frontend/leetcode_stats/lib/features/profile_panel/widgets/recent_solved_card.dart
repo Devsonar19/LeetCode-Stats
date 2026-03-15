@@ -34,7 +34,7 @@ class RecentSolvedCard extends StatelessWidget {
               const Text(
                 "Recently Solved",
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 15,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -43,11 +43,10 @@ class RecentSolvedCard extends StatelessWidget {
 
               IconButton(
                 onPressed: () {},
-                icon: const Icon(Icons.arrow_forward),
+                icon: const Icon(Icons.arrow_forward, size: 15,),
               ),
             ],
           ),
-
           Expanded(
             child: ListView.builder(
               itemCount: ques.length > 5 ? 5 : ques.length,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:leetcode_stats/features/dashboard/widgets/daily_question_card.dart';
 import 'package:leetcode_stats/repositories/profile_repository.dart';
 
 import '../bloc/profile_details_bloc.dart';
@@ -36,7 +37,13 @@ class ProfileDetailsScreen extends StatelessWidget {
                   children: [
                     RecentSolvedCard(
                       ques: state.recentSolved,
-                    )
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    DailyQuestionCard(
+                      question: state.dailyQues ?? {},
+                    ),
                   ],
                 );
               }

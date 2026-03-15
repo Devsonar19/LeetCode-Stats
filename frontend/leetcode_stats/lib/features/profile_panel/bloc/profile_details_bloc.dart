@@ -11,8 +11,11 @@ class ProfileDetailsBloc extends Bloc<ProfileDetailsEvent, ProfileDetailsState>{
       emit(ProfileDetailsLoading());
 
       try{
+        final data = await profileRepo.getProfile(event.username);
         final ques = await profileRepo.getRecentSolved(event.username);
-        emit(ProfileDetailsLoaded(ques));
+        final dailyQues = await profileRepo.getDailyQuestion(event.username);
+        emit(ProfileDetailsLoaded(ques, dailyQues)
+        );
       }catch(e){
         emit(ProfileDetailsError(e.toString()));
       }
