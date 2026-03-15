@@ -12,3 +12,5 @@ class AuthFailure extends AuthState{
   final String error;
   AuthFailure(this.error);
 }
+
+class Loggout extends AuthState{}

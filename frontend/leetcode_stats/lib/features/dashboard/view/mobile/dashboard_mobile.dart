@@ -1,6 +1,5 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leetcode_heatmap/leetcode_heatmap.dart';
 import 'package:leetcode_stats/features/dashboard/widgets/badges_card.dart';
 import 'package:leetcode_stats/features/dashboard/widgets/stats_card.dart';
@@ -8,6 +7,8 @@ import 'package:leetcode_stats/features/dashboard/widgets/submission_heatmap.dar
 
 import '../../../../services/api_service.dart';
 import '../../../../shared/layout/app_drawer.dart';
+import '../../../auth/bloc/auth_bloc.dart';
+import '../../../auth/bloc/auth_state.dart';
 
 class DashboardMobile extends StatefulWidget {
   const DashboardMobile({super.key});
@@ -18,14 +19,17 @@ class DashboardMobile extends StatefulWidget {
 
 class _DashboardMobileState extends State<DashboardMobile> {
 
-  late Future<Map<String,dynamic>> profileData;
+  late Future<Map<String, dynamic>> profileData;
   bool _initialized = false;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if(!_initialized){
-      final username = ModalRoute.of(context)!.settings.arguments as String;
+    if (!_initialized) {
+      final username = ModalRoute
+          .of(context)!
+          .settings
+          .arguments as String;
       profileData = ApiService.fetchProfileForApp(username);
       _initialized = true;
     }
@@ -72,61 +76,69 @@ class _DashboardMobileState extends State<DashboardMobile> {
 
           final rank = profile["ranking"];
 
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text("LeetCode Stats"),
-              centerTitle: true,
-            ),
-            drawer: AppDrawer(
-              userData: data["profile"],
-              isDarkMode: false,
-              onToggleTheme: (){},
-            ),
-            body: ListView(
-                padding: const EdgeInsets.all(10),
-                children: [
-                  Text(
-                    "Hello, ${profile["realName"] ?? "Coder"}",
-                    style: const TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
+          return BlocListener<AuthBloc, AuthState>(
+            listener: (context, state) {
+              if (state is Loggout) {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, "/login", (route) => false);
+              }
+            },
+            child: Scaffold(
+              appBar: AppBar(
+                title: const Text("LeetCode Stats"),
+                centerTitle: true,
+              ),
+              drawer: AppDrawer(
+                userData: data["profile"],
+                isDarkMode: false,
+                onToggleTheme: () {},
+              ),
+              body: ListView(
+                  padding: const EdgeInsets.all(10),
+                  children: [
+                    Text(
+                      "Hello, ${profile["realName"] ?? "Coder"}",
+                      style: const TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
 
-                  const SizedBox(height: 5),
+                    const SizedBox(height: 5),
 
-                  StatsCard(
-                    stats: {
-                      "totalSolved": totalSolved,
-                      "totalQuestions": totalQuestions,
+                    StatsCard(
+                      stats: {
+                        "totalSolved": totalSolved,
+                        "totalQuestions": totalQuestions,
 
-                      "easySolved": easySolved,
-                      "totalEasy": totalEasy,
+                        "easySolved": easySolved,
+                        "totalEasy": totalEasy,
 
-                      "mediumSolved": mediumSolved,
-                      "totalMedium": totalMedium,
+                        "mediumSolved": mediumSolved,
+                        "totalMedium": totalMedium,
 
-                      "hardSolved": hardSolved,
-                      "totalHard": totalHard,
+                        "hardSolved": hardSolved,
+                        "totalHard": totalHard,
 
-                      "ranking": rank,
-                    },
-                  ),
+                        "ranking": rank,
+                      },
+                    ),
 
-                  const SizedBox(height: 10),
+                    const SizedBox(height: 10),
 
-                  SubmissionHeatmap(
+                    SubmissionHeatmap(
                       username: user["username"] ?? "",
                       submissionCalender: user["submissionCalendar"] ?? {},
-                  ),
+                    ),
 
-                  const SizedBox(height: 10),
+                    const SizedBox(height: 10),
 
-                  BadgesCard(
+                    BadgesCard(
                       badges: (user["badges"] ?? []) as List,
-                  ),
+                    ),
 
-                ]
+                  ]
+              ),
             ),
           );
         }

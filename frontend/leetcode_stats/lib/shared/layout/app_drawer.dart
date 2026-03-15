@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leetcode_stats/core/theme/theme_bloc.dart';
 import 'package:leetcode_stats/features/profile_panel/view/profile_detail_screen.dart';
 
+import '../../features/auth/bloc/auth_bloc.dart';
+import '../../features/auth/bloc/auth_event.dart';
+
 class AppDrawer extends StatelessWidget {
   final Map<String, dynamic>? userData;
   final bool isDarkMode;
@@ -94,7 +97,7 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.logout),
             title: const Text("Logout"),
             onTap: (){
-              //opens about developer page
+              context.read<AuthBloc>().add(LogoutRequest());
             },
           ),
         ],

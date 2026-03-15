@@ -76,7 +76,10 @@ class _LoginMobileState extends State<LoginMobile> {
                         },
                         child: state is AuthLoading
                             ? const CircularProgressIndicator()
-                            : const Text("Login")
+                            : const Text("Enter"),
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(double.infinity, 50),
+                      ),
                     ),
                   ]
                 )
