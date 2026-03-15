@@ -30,7 +30,7 @@ class DailyQuestionCard extends StatelessWidget {
             style: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.bold,
-              color: Theme.of(context).primaryColor,
+              color: Colors.black,
             ),
           ),
 
@@ -53,9 +53,10 @@ class DailyQuestionCard extends StatelessWidget {
                       children:[
                         Text(
                           title,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
+                            color: Theme.of(context).primaryColor,
                           ),
                         ),
 
@@ -71,7 +72,6 @@ class DailyQuestionCard extends StatelessWidget {
                       ]
                     )
                 ),
-                const Icon(Icons.arrow_forward, size: 10,)
               ],
             ),
           )

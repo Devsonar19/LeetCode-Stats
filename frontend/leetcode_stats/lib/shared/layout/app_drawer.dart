@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:leetcode_stats/core/theme/theme_bloc.dart';
 import 'package:leetcode_stats/features/profile_panel/view/profile_detail_screen.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -74,9 +76,9 @@ class AppDrawer extends StatelessWidget {
           SwitchListTile(
               title: const Text("Dark Mode"),
               secondary: Icon(Icons.dark_mode),
-              value: isDarkMode,
+              value: context.watch<ThemeBloc>().state == ThemeMode.dark,
               onChanged: (value){
-                onToggleTheme();
+                context.read<ThemeBloc>().toggleTheme();
               }
           ),
           

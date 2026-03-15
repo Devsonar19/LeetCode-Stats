@@ -19,11 +19,16 @@ class DashboardMobile extends StatefulWidget {
 class _DashboardMobileState extends State<DashboardMobile> {
 
   late Future<Map<String,dynamic>> profileData;
+  bool _initialized = false;
 
   @override
-  void initState() {
-    super.initState();
-    profileData = ApiService.fetchProfileForApp("Dev_Sonar19");
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if(!_initialized){
+      final username = ModalRoute.of(context)!.settings.arguments as String;
+      profileData = ApiService.fetchProfileForApp(username);
+      _initialized = true;
+    }
   }
 
   @override

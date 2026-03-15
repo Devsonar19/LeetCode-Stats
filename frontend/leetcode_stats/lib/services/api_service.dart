@@ -32,4 +32,14 @@ class ApiService {
       throw Exception("Failed to load profile");
     }
   }
+
+  static Future<Map<String, dynamic>> checkUser(String username) async{
+    final data = await fetchProfileForApp(username);
+    final profile = data["profile"];
+    if(profile == null){
+      throw Exception("User not Found");
+    }
+    return profile;
+
+  }
 }
