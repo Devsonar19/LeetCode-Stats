@@ -84,14 +84,6 @@ class AppDrawer extends StatelessWidget {
                 context.read<ThemeBloc>().toggleTheme();
               }
           ),
-          
-          ListTile(
-            leading: Icon(Icons.code),
-            title: const Text("About Developer"),
-            onTap: (){
-              //opens about developer page
-            },
-          ),
 
           ListTile(
             leading: Icon(Icons.logout),

@@ -77,7 +77,6 @@ async def get_profile(username: str):
     if "data" not in data:
         return {"error": "User not found", "details": data}
     
-    print(data)
     
     recent = await execute_query(
       RECENT_SOLVED_QUERY,
@@ -127,7 +126,6 @@ async def get_badges(username: str):
     if "data" not in data:
         return {"error": "User not found", "details": data}
     
-    print(data)
     
     user = data["data"]["matchedUser"]
 
