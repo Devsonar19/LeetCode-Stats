@@ -10,17 +10,20 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  Future<Map<String, dynamic>>? profileData;
+  late Future<Map<String, dynamic>>? profileData;
+  bool _initialized = false;
 
-  void loadProfile(String username) {
-    setState(() {
-      profileData = ApiService.fetchProfileForWeb(username);
-    });
-  }
   @override
-  void initState() {
-    super.initState();
-    loadProfile("Dev_Sonar19");
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_initialized) {
+      final username = ModalRoute
+          .of(context)!
+          .settings
+          .arguments as String;
+      profileData = ApiService.fetchProfileForApp(username);
+      _initialized = true;
+    }
   }
 
   @override

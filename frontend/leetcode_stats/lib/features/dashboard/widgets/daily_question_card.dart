@@ -30,7 +30,6 @@ class DailyQuestionCard extends StatelessWidget {
             style: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.bold,
-              color: Colors.black,
             ),
           ),
 
@@ -56,7 +55,6 @@ class DailyQuestionCard extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
-                            color: Theme.of(context).primaryColor,
                           ),
                         ),
 
@@ -64,9 +62,8 @@ class DailyQuestionCard extends StatelessWidget {
 
                         Text(
                           date,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 10,
-                            color: Colors.grey,
                           ),
                         )
                       ]
