@@ -54,20 +54,3 @@ The goal of this project is to move beyond simple statistics and provide a compr
 * **Frontend:** Flutter (Multi-platform UI)
 * **State Management:** Provider / BLoC
 * **Backend:** FastAPI, GraphQL
-
----
-
-## 📂 Backend Structure
-The backend is organized for modularity and scalability:
-
-```text
-backend/
-├── app/
-│   ├── main.py             # Entry point
-│   ├── core/               # Configuration & Constants
-│   ├── api/                # API Routing (Profile, Badge, Stats, Calendar)
-│   ├── services/           # Business logic & GraphQL client
-│   ├── models/             # Data schemas
-│   └── utils/              # Streak calculation & Heatmap parsing
-├── requirements.txt        # Dependencies
-└── .env                    # Environment variables
