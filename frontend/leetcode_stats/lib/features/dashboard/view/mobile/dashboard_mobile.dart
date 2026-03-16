@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:leetcode_heatmap/leetcode_heatmap.dart';
 import 'package:leetcode_stats/features/dashboard/widgets/badges_card.dart';
 import 'package:leetcode_stats/features/dashboard/widgets/stats_card.dart';
 import 'package:leetcode_stats/features/dashboard/widgets/submission_heatmap.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../services/api_service.dart';
 import '../../../../shared/layout/app_drawer.dart';
@@ -19,24 +19,40 @@ class DashboardMobile extends StatefulWidget {
 
 class _DashboardMobileState extends State<DashboardMobile> {
 
-  late Future<Map<String, dynamic>> profileData;
-  bool _initialized = false;
+  Future<Map<String, dynamic>>? profileData;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (!_initialized) {
-      final username = ModalRoute
-          .of(context)!
-          .settings
-          .arguments as String;
-      profileData = ApiService.fetchProfileForApp(username);
-      _initialized = true;
+  void initState() {
+    super.initState();
+    loadProfile();
+  }
+
+  Future<void> loadProfile() async {
+    final store = await SharedPreferences.getInstance();
+    final username = store.getString("username");
+
+    if(!mounted) return;
+
+    if (username == null) {
+      Navigator.pushReplacementNamed(
+          context, "/login",
+      );
+      return;
     }
+    setState(() {
+      profileData = ApiService.fetchProfileForApp(username);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+
+    if(profileData == null){
+      return Scaffold(
+          body: Center(child: CircularProgressIndicator())
+      );
+    }
+
     return FutureBuilder<Map<String, dynamic>>(
         future: profileData,
         builder: (context, snapshot) {
