@@ -9,9 +9,17 @@ query getUserDashboard($username: String!) {
     profile {
       realName
       userAvatar
-      ranking
-      reputation
+      countryName
+      school
+      aboutMe
+      skillTags
+      websites
+      birthday
     }
+
+    githubUrl
+    twitterUrl
+    linkedinUrl
 
     badges {
       displayName
