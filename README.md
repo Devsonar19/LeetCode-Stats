@@ -2,13 +2,13 @@
 
 A lightweight Flutter app to track your **LeetCode progress** with a clean mobile dashboard.
 
-![Screenshot](assests/screenshots/dashboard.png)
-![Screenshot](assests/screenshots/appDrawer.png)
-![Screenshot](assests/screenshots/streakWidget.png)
+<img src="assests/screenshots/dashboard.png" width="30%"/>
+<img src="assests/screenshots/appDrawer.png" width="30%"/>
+<img src="assests/screenshots/streakWidget.png" width="30%"/>
 
 ## 🚀 Features
 
-* Profile dashboard
+* Profile dashboard 
 * Easy / Medium / Hard problems solved
 * 5 recently solved questions
 * LeetCode badges
