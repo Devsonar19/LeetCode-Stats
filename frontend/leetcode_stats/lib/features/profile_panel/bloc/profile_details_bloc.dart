@@ -10,13 +10,26 @@ class ProfileDetailsBloc extends Bloc<ProfileDetailsEvent, ProfileDetailsState>{
     on<LoadRecentSolved>((event, emit) async {
       emit(ProfileDetailsLoading());
 
-      try{
+      try {
         final data = await profileRepo.getProfile(event.username);
         final ques = await profileRepo.getRecentSolved(event.username);
         final dailyQues = await profileRepo.getDailyQuestion(event.username);
-        emit(ProfileDetailsLoaded(ques, dailyQues)
-        );
-      }catch(e){
+
+        final user = (data is Map)
+            ? Map<String, dynamic>.from(data)
+            : <String, dynamic>{};
+
+        if(user == null){
+          emit(ProfileDetailsError("User not found"));
+          return;
+        }
+
+        emit(ProfileDetailsLoaded(
+          ques,
+          dailyQues,
+          user,
+        ));
+      } catch (e) {
         emit(ProfileDetailsError(e.toString()));
       }
     });

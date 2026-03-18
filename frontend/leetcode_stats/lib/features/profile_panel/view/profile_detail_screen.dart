@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leetcode_stats/features/dashboard/widgets/daily_question_card.dart';
 import 'package:leetcode_stats/repositories/profile_repository.dart';
 
+import '../../dashboard/widgets/sec_profile_details.dart';
 import '../bloc/profile_details_bloc.dart';
 import '../bloc/profile_details_event.dart';
 import '../bloc/profile_details_state.dart';
@@ -44,6 +45,12 @@ class ProfileDetailsScreen extends StatelessWidget {
                     DailyQuestionCard(
                       question: state.dailyQues ?? {},
                     ),
+
+                    const SizedBox(height: 10),
+
+                    SecProfileDetails(
+                      profile: state.user ?? {},
+                    )
                   ],
                 );
               }
