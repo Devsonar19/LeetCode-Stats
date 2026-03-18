@@ -88,7 +88,7 @@ class _DashboardMobileState extends State<DashboardMobile> {
 
             WidgetSyncService.updateWidgetData(
                 maxStreak: streakData.maxStreak,
-                todaySubmissions: streakData.totalSubmissions,
+                todaySubmissions: streakData.todaySubmissions,
             );
           }
 

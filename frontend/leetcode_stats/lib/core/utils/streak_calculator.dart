@@ -25,8 +25,12 @@ StreakData calculateStreak(Map<String, dynamic> calendar){
       currentStreak = 0;
     }
   }
-  final today = DateTime.now().millisecondsSinceEpoch ~/1000;
-  final todaySubmissions = calendar[today.toString()] ?? 0;
+  final now = DateTime.now().toUtc();
+  final todayStart = DateTime.utc(now.year, now.month, now.day);
+  final todayKey = (todayStart.millisecondsSinceEpoch ~/ 1000).toString();
+
+  final todaySubmissions =
+      int.tryParse(calendar[todayKey]?.toString() ?? "0") ?? 0;
 
   return StreakData(
     maxStreak: maxStreak,
