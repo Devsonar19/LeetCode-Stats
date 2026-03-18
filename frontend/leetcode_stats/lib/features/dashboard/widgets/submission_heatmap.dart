@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:leetcode_heatmap/leetcode_heatmap.dart';
+import 'package:leetcode_stats/core/utils/streak_calculator.dart';
 
 class SubmissionHeatmap extends StatelessWidget {
   final String username;
@@ -12,28 +13,7 @@ class SubmissionHeatmap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Map<String, dynamic> calendar = jsonDecode(submissionCalender);
-
-    // calculating total submission
-    int totalSubmissions = 0;
-    calendar.forEach((key, value){
-      totalSubmissions += value as int;
-    });
-
-    int maxStreak = 0;
-    int currentStreak = 0;
-    final sortedDates = calendar.keys.toList()..sort();
-
-    // calculating max streak
-    for(var date in sortedDates){
-      if(calendar[date] > 0){
-        currentStreak++;
-        if(currentStreak > maxStreak){
-          maxStreak = currentStreak;
-        }else{
-          currentStreak = 0;
-        }
-      }
-    }
+    final streakData =  calculateStreak(calendar);
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -57,7 +37,7 @@ class SubmissionHeatmap extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "$totalSubmissions Total Submissions",
+                "${streakData.totalSubmissions} Total Submissions",
                 style: const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
@@ -65,7 +45,7 @@ class SubmissionHeatmap extends StatelessWidget {
               ),
 
               Text(
-                "Max Streak: $maxStreak",
+                "Max Streak: ${streakData.maxStreak}",
                 style: const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,

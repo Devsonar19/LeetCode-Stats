@@ -1,14 +1,19 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leetcode_stats/features/dashboard/widgets/badges_card.dart';
 import 'package:leetcode_stats/features/dashboard/widgets/stats_card.dart';
 import 'package:leetcode_stats/features/dashboard/widgets/submission_heatmap.dart';
+import 'package:leetcode_stats/features/widget_sync/widget_sync_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../core/utils/streak_calculator.dart';
 import '../../../../services/api_service.dart';
 import '../../../../shared/layout/app_drawer.dart';
 import '../../../auth/bloc/auth_bloc.dart';
 import '../../../auth/bloc/auth_state.dart';
+
 
 class DashboardMobile extends StatefulWidget {
   const DashboardMobile({super.key});
@@ -75,6 +80,17 @@ class _DashboardMobileState extends State<DashboardMobile> {
           final submitStats = user["submitStatsGlobal"];
           final solvedStats = submitStats?["acSubmissionNum"];
           final totalStats = data["allQuestionsCount"];
+
+          final calenderRaw = user["submissionCalendar"];
+          if(calenderRaw != null){
+            final calender = jsonDecode(calenderRaw);
+            final streakData =  calculateStreak(calender);
+
+            WidgetSyncService.updateWidgetData(
+                maxStreak: streakData.maxStreak,
+                todaySubmissions: streakData.totalSubmissions,
+            );
+          }
 
           if (solvedStats == null) {
             return const Center(child: Text("Stats unavailable"));
@@ -144,7 +160,7 @@ class _DashboardMobileState extends State<DashboardMobile> {
 
                     SubmissionHeatmap(
                       username: user["username"] ?? "",
-                      submissionCalender: user["submissionCalendar"] ?? {},
+                      submissionCalender: user["submissionCalendar"] ?? "{}",
                     ),
 
                     const SizedBox(height: 10),
