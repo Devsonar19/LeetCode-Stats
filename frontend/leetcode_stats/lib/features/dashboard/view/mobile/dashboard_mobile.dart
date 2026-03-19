@@ -2,17 +2,21 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:leetcode_stats/features/dashboard/utils/heatmap_image_generator.dart';
 import 'package:leetcode_stats/features/dashboard/widgets/badges_card.dart';
 import 'package:leetcode_stats/features/dashboard/widgets/stats_card.dart';
 import 'package:leetcode_stats/features/dashboard/widgets/submission_heatmap.dart';
 import 'package:leetcode_stats/features/widget_sync/widget_sync_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../core/utils/image_storage_helper.dart';
 import '../../../../core/utils/streak_calculator.dart';
 import '../../../../services/api_service.dart';
+import '../../../../services/widget_service.dart';
 import '../../../../shared/layout/app_drawer.dart';
 import '../../../auth/bloc/auth_bloc.dart';
 import '../../../auth/bloc/auth_state.dart';
+import '../../widgets/widget_heatmap.dart';
 
 
 class DashboardMobile extends StatefulWidget {
@@ -49,6 +53,21 @@ class _DashboardMobileState extends State<DashboardMobile> {
     });
   }
 
+  Future<void> generateWidget(List<int> data) async {
+    print("Generating widget");
+    final bytes = await HeatmapImageGenerator.capture();
+
+    if(bytes != null){
+      print("Widget generated");
+      final path = await ImageStorageHelper.save(bytes);
+      print("Widget save path: $path");
+      await WidgetService.updateWidget(path);
+      print("Widget updated");
+    }else{
+      print("Widget failed");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -82,14 +101,35 @@ class _DashboardMobileState extends State<DashboardMobile> {
           final totalStats = data["allQuestionsCount"];
 
           final calenderRaw = user["submissionCalendar"];
-          if(calenderRaw != null){
-            final calender = jsonDecode(calenderRaw);
-            final streakData =  calculateStreak(calender);
 
-            WidgetSyncService.updateWidgetData(
-                maxStreak: streakData.maxStreak,
-                todaySubmissions: streakData.todaySubmissions,
+          List<int> heatmapData = [];
+
+          if (calenderRaw != null) {
+            final Map<String, dynamic> calenderMap = jsonDecode(calenderRaw);
+            final streakData = calculateStreak(calenderMap);
+
+            WidgetSyncService.updateStreak(
+              maxStreak: streakData.maxStreak,
+              todaySubmissions: streakData.todaySubmissions,
             );
+            final sortedKeys = calenderMap.keys.toList()
+              ..sort((a, b) => int.parse(a).compareTo(int.parse(b)));
+
+            heatmapData = sortedKeys.map((k) => calenderMap[k] as int).toList();
+            bool widgetGenerated = false;
+            if (heatmapData.isNotEmpty && !widgetGenerated) {
+              widgetGenerated = true;
+
+              WidgetsBinding.instance.addPostFrameCallback((_) async {
+                await Future.delayed(const Duration(milliseconds: 700));
+                await generateWidget(heatmapData);
+              });
+            }
+
+            if (heatmapData.length > 84) {
+              heatmapData = heatmapData.sublist(heatmapData.length - 84);
+            }
+
           }
 
           if (solvedStats == null) {
@@ -168,6 +208,13 @@ class _DashboardMobileState extends State<DashboardMobile> {
                     BadgesCard(
                       badges: (user["badges"] ?? []) as List,
                     ),
+
+                    const SizedBox(height: 10),
+
+                    RepaintBoundary(
+                      key: HeatmapImageGenerator.repaintKey,
+                      child: WidgetHeatmap(data: heatmapData),
+                    )
 
                   ]
               ),

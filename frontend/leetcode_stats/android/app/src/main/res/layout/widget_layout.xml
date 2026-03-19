@@ -1,27 +1,12 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:gravity="start"
-    android:padding="16dp"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@drawable/widget_bg"
+    android:padding="8dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/streakText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="🔥 0"
-        android:textSize="22sp"
-        android:textColor="#000000"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:id="@+id/submissionText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Today: 0"
-        android:textSize="13sp"
-        android:textColor="#666666"
-        android:layout_marginTop="4dp"/>
-
-</LinearLayout>
+    <ImageView
+        android:id="@+id/heatmapImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"/>
+</RelativeLayout>
