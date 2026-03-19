@@ -18,17 +18,16 @@ A lightweight Flutter app to track your **LeetCode progress** with a clean mobil
 
 ## ⚠️ Beta Notes
 
-* Login session may not persist yet
 * First login can take **up to ~1 minute** because the backend server (Render free tier) may need to wake up
 
 ## 🔜 Coming Soon
 
-* Home screen widget
+* Home screen widget of Submission HeatMap
 * More detailed profile stats
 * UI & performance improvements
 
 APK available in **Releases**.
-* https://github.com/Devsonar19/LeetCode-Stats/releases/tag/v0.0.1(Beta) 
+* https://github.com/Devsonar19/LeetCode-Stats/releases/tag/v0.0.2(Beta)
 
 
 > [!IMPORTANT]
@@ -36,7 +35,7 @@ APK available in **Releases**.
 
 ---
 
-A cross-platform application designed to provide a **beautiful, intuitive dashboard** for tracking and visualizing your LeetCode progress. Whether you're preparing for technical interviews or competitive programming, this app helps you stay on top of your game across all your devices.
+A cross-platform application designed to provide a **intuitive dashboard** for tracking and visualizing your LeetCode progress. Whether you're preparing for technical interviews or competitive programming, this app helps you stay on top of your game across all your devices.
 
 ---
 
