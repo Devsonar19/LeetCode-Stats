@@ -222,6 +222,7 @@ class StatsCard extends StatelessWidget {
             "$rank",
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.bold,
+              fontSize: 15
             ),
           )
 
