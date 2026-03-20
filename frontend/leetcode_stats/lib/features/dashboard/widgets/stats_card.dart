@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class StatsCard extends StatelessWidget {
   final Map<String, dynamic> stats;
@@ -25,8 +26,6 @@ class StatsCard extends StatelessWidget {
 
     final rank = stats["ranking"];
 
-    final progress = totalSolved / totalQuestions;
-
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -47,56 +46,8 @@ class StatsCard extends StatelessWidget {
           return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(
-                height: size,
-                width: size,
-                child: Stack(
-                  alignment: Alignment.center,
-                    children: [
-                      SizedBox(
-                        height: size,
-                        width: size,
-                        child: CircularProgressIndicator(
-                          value: 1,
-                          strokeWidth: 10,
-                          color: Colors.grey.shade600,
-                        ),
-                      ),
 
-                      SizedBox(
-                        height: size,
-                        width: size,
-                        child: CircularProgressIndicator(
-                          value: progress,
-                          strokeWidth: 10,
-                          color: Colors.green,
-                        )
-                      ),
-
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "$totalSolved / $totalQuestions",
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                          const Text(
-                            "Solved",
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.grey,
-                              letterSpacing: 1.2,
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                ),
-              ),
+              _circularProgress(context, totalSolved, totalQuestions),
               const SizedBox(height: 20,),
 
               _progressRow(
@@ -174,6 +125,52 @@ class StatsCard extends StatelessWidget {
       ],
 
     );
+  }
+
+  Widget _circularProgress(
+      BuildContext context,
+      int solved,
+      int total
+      ){
+
+    final percent = solved / total;
+
+    return CircularPercentIndicator(
+        radius: MediaQuery.of(context).size.width * 0.28,
+        lineWidth: 10,
+        percent: percent.clamp(0.0, 1.0),
+        animation: true,
+        animateFromLastPercent: true,
+
+      backgroundColor: Theme.of(context).dividerColor.withOpacity(0.5),
+      progressColor: Colors.green,
+      circularStrokeCap: CircularStrokeCap.round,
+
+      center: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "$solved / $total",
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            "Solved",
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: Theme.of(context)
+                  .colorScheme
+                  .onSurface
+                  .withOpacity(0.7),
+              fontWeight: FontWeight.w600,
+              fontSize: 20,
+            ),
+          )
+        ],
+      ),
+
+    );
+
   }
 
 }
