@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../badges/pages/badges_view.dart';
+
 class BadgesCard extends StatelessWidget {
   final List badges;
   const BadgesCard({super.key, required this.badges});
@@ -9,7 +11,7 @@ class BadgesCard extends StatelessWidget {
     final recentBadges = badges.take(5).toList();
 
     return Container(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16),
@@ -29,18 +31,31 @@ class BadgesCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                "Badges",
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: const Text(
+                  "Badges",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
 
-              IconButton(
-                  onPressed: (){},
-                  icon: const Icon(Icons.arrow_forward),
-
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: TextButton.icon(
+                    onPressed: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BadgesView(badges: badges),
+                        ),
+                      );
+                    },
+                    label: const Text("View All", style: TextStyle(color: Colors.black),),
+                    icon: const Icon(Icons.arrow_forward, color: Colors.black,),
+                ),
               ),
             ],
           ),
@@ -89,6 +104,7 @@ class BadgesCard extends StatelessWidget {
                       width: 60,
                       child: Text(
                         name,
+                        maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
