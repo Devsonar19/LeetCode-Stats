@@ -53,8 +53,17 @@ class BadgesCard extends StatelessWidget {
                         ),
                       );
                     },
-                    label: const Text("View All", style: TextStyle(color: Colors.black),),
-                    icon: const Icon(Icons.arrow_forward, color: Colors.black,),
+                    label: Text(
+                      "View All",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                      ),
+                    ),
+                    icon: Icon(
+                      Icons.arrow_forward,
+                      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                    ),
+                  iconAlignment: IconAlignment.end,
                 ),
               ),
             ],
