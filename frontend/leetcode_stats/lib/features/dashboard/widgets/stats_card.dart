@@ -25,6 +25,8 @@ class StatsCard extends StatelessWidget {
 
     final rank = stats["ranking"];
 
+    final progress = totalSolved / totalQuestions;
+
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -32,7 +34,7 @@ class StatsCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(.08),
+            color: Colors.black.withOpacity(.10),
             blurRadius: 12,
             offset: const Offset(0,4),
           )
@@ -41,141 +43,137 @@ class StatsCard extends StatelessWidget {
 
       child: LayoutBuilder(
         builder: (context, constraints) {
+          final size = constraints.maxWidth * 0.45;
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: size,
+                width: size,
+                child: Stack(
+                  alignment: Alignment.center,
+                    children: [
+                      SizedBox(
+                        height: size,
+                        width: size,
+                        child: CircularProgressIndicator(
+                          value: 1,
+                          strokeWidth: 10,
+                          color: Colors.grey.shade600,
+                        ),
+                      ),
 
-          final isMobile = constraints.maxWidth < 600;
+                      SizedBox(
+                        height: size,
+                        width: size,
+                        child: CircularProgressIndicator(
+                          value: progress,
+                          strokeWidth: 10,
+                          color: Colors.green,
+                        )
+                      ),
 
-          if (isMobile) {
-            return _mobileLayout(
-              totalSolved,
-              totalQuestions,
-              easySolved,
-              totalEasy,
-              mediumSolved,
-              totalMedium,
-              hardSolved,
-              totalHard,
-              rank,
-            );
-          }
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "$totalSolved / $totalQuestions",
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          const Text(
+                            "Solved",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.grey,
+                              letterSpacing: 1.2,
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                ),
+              ),
+              const SizedBox(height: 20,),
 
-          return _desktopLayout(
-            totalSolved,
-            totalQuestions,
-            easySolved,
-            totalEasy,
-            mediumSolved,
-            totalMedium,
-            hardSolved,
-            totalHard,
-            rank,
+              _progressRow(
+                "Easy",
+                easySolved,
+                totalEasy,
+                Colors.teal,
+                context
+              ),
+              const SizedBox(height: 10,),
+              _progressRow(
+                "Medium",
+                mediumSolved,
+                totalMedium,
+                Colors.amber,
+                context
+              ),
+              const SizedBox(height: 10,),
+              _progressRow(
+                "Hard",
+                hardSolved,
+                totalHard,
+                Colors.red,
+                context
+              ),
+
+            ],
           );
         },
       ),
     );
   }
 
-  Widget _mobileLayout(
-      totalSolved,
-      totalQuestions,
-      easySolved,
-      totalEasy,
-      mediumSolved,
-      totalMedium,
-      hardSolved,
-      totalHard,
-      rank,
-      ) {
-
+  Widget _progressRow(
+      String title,
+      int solved,
+      int total,
+      Color color,
+      BuildContext context,
+  ) {
+    final progress = solved / total;
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _statBox("Total Solved", "$totalSolved / $totalQuestions"),
-            _statBox("Rank", "$rank"),
+            Text(
+              title,
+              style: TextStyle(
+                color: color,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              "$solved / $total",
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                fontWeight: FontWeight.w600,
+              ),
+            )
           ],
         ),
+        const SizedBox(height: 5),
 
-        const SizedBox(height:16),
-
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _difficultyBox("Easy", "$easySolved / $totalEasy", Colors.teal),
-            _difficultyBox("Medium", "$mediumSolved / $totalMedium", Colors.amber),
-            _difficultyBox("Hard", "$hardSolved / $totalHard", Colors.red),
-          ],
+        ClipRect(
+          child: LinearProgressIndicator(
+            value: progress,
+            color: color,
+            minHeight: 10,
+            backgroundColor: Colors.grey.shade700,
+            valueColor: AlwaysStoppedAnimation(color),
+          ),
         )
       ],
+
     );
   }
 
-  Widget _desktopLayout(
-      totalSolved,
-      totalQuestions,
-      easySolved,
-      totalEasy,
-      mediumSolved,
-      totalMedium,
-      hardSolved,
-      totalHard,
-      rank,
-      ) {
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-
-        _statBox("Total Solved", "$totalSolved / $totalQuestions"),
-        _statBox("Rank", "$rank"),
-
-        _difficultyBox("Easy", "$easySolved / $totalEasy", Colors.teal),
-        _difficultyBox("Medium", "$mediumSolved / $totalMedium", Colors.amber),
-        _difficultyBox("Hard", "$hardSolved / $totalHard", Colors.red),
-      ],
-    );
-  }
-
-  Widget _statBox(String title, String value) {
-
-    return Column(
-      children: [
-        Text(title, style: const TextStyle(fontSize:16)),
-        const SizedBox(height:6),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal:18, vertical:10),
-          decoration: BoxDecoration(
-            color: Colors.grey.shade600,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Text(
-            value,
-            style: const TextStyle(
-                fontSize:18,
-                fontWeight: FontWeight.bold,
-                color: Colors.white
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _difficultyBox(String title, String value, Color color) {
-
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal:16, vertical:10),
-      decoration: BoxDecoration(
-        color: Colors.grey.shade700,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        children: [
-          Text(title, style: TextStyle(color: color, fontWeight: FontWeight.bold)),
-          Text(value, style: const TextStyle(color: Colors.white))
-        ],
-      ),
-    );
-  }
 }
