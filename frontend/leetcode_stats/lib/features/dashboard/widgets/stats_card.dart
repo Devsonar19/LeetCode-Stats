@@ -47,7 +47,21 @@ class StatsCard extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
 
-              _circularProgress(context, totalSolved, totalQuestions),
+              Row(
+                children: [
+                  Expanded(
+                      child: _circularProgress(context, totalSolved, totalQuestions),
+                    flex: 3,
+                  ),
+
+                  const SizedBox(width: 20,),
+
+                  Expanded(
+                      child: _rankBox(context, rank),
+                    flex: 2,
+                  )
+                ],
+              ),
               const SizedBox(height: 20,),
 
               _progressRow(
@@ -118,7 +132,7 @@ class StatsCard extends StatelessWidget {
             value: progress,
             color: color,
             minHeight: 10,
-            backgroundColor: Colors.grey.shade700,
+            backgroundColor: Colors.grey.shade500,
             valueColor: AlwaysStoppedAnimation(color),
           ),
         )
@@ -169,6 +183,50 @@ class StatsCard extends StatelessWidget {
         ],
       ),
 
+    );
+
+  }
+
+  Widget _rankBox(
+    BuildContext context,
+    int rank,
+      ){
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: BorderRadius.circular(15),
+        border: Border.all(
+          color: Theme.of(context).dividerColor.withOpacity(0.5),
+          width: 2,
+        ),
+      ),
+
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Ranking",
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: Theme.of(context)
+                  .colorScheme
+                  .onSurface
+                  .withOpacity(0.7),
+              fontWeight: FontWeight.w600,
+              fontSize: 20,
+            ),
+          ),
+          const SizedBox(height: 5,),
+
+          Text(
+            "$rank",
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          )
+
+        ],
+      ),
     );
 
   }
