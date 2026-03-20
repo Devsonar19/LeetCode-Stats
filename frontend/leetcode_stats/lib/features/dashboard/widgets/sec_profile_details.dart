@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -24,6 +26,7 @@ class SecProfileDetails extends StatelessWidget {
     final linkedin = user["linkedinUrl"] ?? "";
     final twitter = user["twitterUrl"] ?? "";
     final skills = profileDetails["skillTags"] ?? [];
+    final color = Theme.of(context).colorScheme.onSurface;
 
     return Container(
       padding: const EdgeInsets.all(15),
@@ -33,7 +36,7 @@ class SecProfileDetails extends StatelessWidget {
 
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.10),
+            color: Colors.grey.withOpacity(0.20),
             offset: const Offset(0, 4),
           )
         ]
@@ -97,27 +100,27 @@ class SecProfileDetails extends StatelessWidget {
           Row(
             children: [
               if(github.isNotEmpty)
-                IconButton(
-                  onPressed: () {
-                    openUrl(github);
-                  },
-                  icon: const Icon(Icons.code),
+                Text("GitHub"),
+                TextButton.icon(
+                    onPressed: () => openUrl(github),
+                    label: Text("GitHub", style: Theme.of(context).textTheme.titleSmall,),
+                    icon: FaIcon(FontAwesomeIcons.github, color: color,),
                 ),
 
               if(linkedin.isNotEmpty)
-                IconButton(
-                  onPressed: () {
-                    openUrl(linkedin);
-                  },
-                  icon: const Icon(Icons.work_outline),
+                Text("LinkedIn"),
+                TextButton.icon(
+                    onPressed: () => openUrl(linkedin),
+                    label: Text("LinkedIn", style: Theme.of(context).textTheme.titleSmall,),
+                    icon: FaIcon(FontAwesomeIcons.linkedin, color: color,),
                 ),
 
               if(twitter.isNotEmpty)
-                IconButton(
-                  onPressed: () {
-                    openUrl(twitter);
-                  },
-                  icon: const Icon(Icons.web_stories),
+                Text("X"),
+                TextButton.icon(
+                    onPressed: () => openUrl(twitter),
+                    label: Text("Twitter", style: Theme.of(context).textTheme.titleSmall,),
+                    icon: FaIcon(FontAwesomeIcons.xTwitter, color: color,),
                 )
             ],
           )

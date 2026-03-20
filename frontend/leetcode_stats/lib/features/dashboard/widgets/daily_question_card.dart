@@ -16,7 +16,7 @@ class DailyQuestionCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(.10),
+            color: Colors.black.withOpacity(.20),
             blurRadius: 10,
             offset: const Offset(0,4),
           )

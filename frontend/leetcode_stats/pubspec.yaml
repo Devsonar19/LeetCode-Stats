@@ -43,6 +43,7 @@ dependencies:
   material_symbols_icons: ^4.2906.0
   iconsax_flutter: ^1.0.1
   percent_indicator: ^4.2.5
+  font_awesome_flutter: ^11.0.0
 
 dev_dependencies:
   flutter_test:
