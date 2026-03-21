@@ -27,7 +27,22 @@ class ProfileDetailsScreen extends StatelessWidget {
         body: BlocBuilder<ProfileDetailsBloc, ProfileDetailsState>(
             builder: (context, state){
               if(state is ProfileDetailsLoading){
-                return const Center(child: CircularProgressIndicator());
+                return Scaffold(
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  body: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        CircularProgressIndicator(),
+                        SizedBox(height: 10),
+                        Text(
+                          "Wait While we fetch your data...",
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ],
+                    ),
+                  ),
+                );
               }
               if(state is ProfileDetailsError){
                 return Center(child: Text(state.error));

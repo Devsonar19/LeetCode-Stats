@@ -21,10 +21,12 @@ class ApiService {
   }
 
   static Future<Map<String, dynamic>> fetchProfileForWeb(String username) async {
-    final response = await http.get(
-      Uri.parse("$baseUrlForWeb/profile/$username"),
-    );
+    const corsProxy = "https://corsproxy.io/?";
+    final targetUrl = "$baseUrlForWeb/profile/$username";
 
+    final response = await http.get(
+      Uri.parse("$corsProxy${Uri.encodeComponent(targetUrl)}"),
+    );
 
     if (response.statusCode == 200) {
       return jsonDecode(response.body);

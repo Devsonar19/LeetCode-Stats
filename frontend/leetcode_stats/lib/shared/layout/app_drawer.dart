@@ -27,7 +27,7 @@ class AppDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           SizedBox(
-            height: 200,
+            height: 300,
             child: DrawerHeader(
               margin: EdgeInsets.all(10),
               padding: EdgeInsets.all(10),
@@ -38,7 +38,7 @@ class AppDrawer extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CircleAvatar(
-                      radius: 40,
+                      radius: 70,
                       backgroundImage: profile != null
                           ? NetworkImage(profile["userAvatar"])
                           : null,
@@ -52,7 +52,7 @@ class AppDrawer extends StatelessWidget {
                     Text(
                       userData?["username"] ?? "Guest",
                       style: const TextStyle(
-                        fontSize: 17,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

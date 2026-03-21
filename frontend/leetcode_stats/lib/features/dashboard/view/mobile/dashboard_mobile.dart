@@ -81,7 +81,22 @@ class _DashboardMobileState extends State<DashboardMobile> {
         future: profileData,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return Scaffold(
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              body: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      CircularProgressIndicator(),
+                      SizedBox(height: 10),
+                      Text(
+                        "Wait While we fetch your data...",
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ],
+                  ),
+              ),
+            );
           }
 
           if (snapshot.hasError) {
@@ -168,11 +183,25 @@ class _DashboardMobileState extends State<DashboardMobile> {
               body: ListView(
                   padding: const EdgeInsets.all(10),
                   children: [
-                    Text(
-                      "Hello, ${profile["realName"] ?? "Coder"}",
-                      style: const TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).cardColor,
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(.10),
+                            blurRadius: 12,
+                            offset: const Offset(0,4),
+                          )
+                        ]
+                      ),
+                      child: Text(
+                        "Hello, ${profile["realName"] ?? "Coder"}",
+                        style: const TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
 
@@ -196,20 +225,20 @@ class _DashboardMobileState extends State<DashboardMobile> {
                       },
                     ),
 
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 5),
 
                     SubmissionHeatmap(
                       username: user["username"] ?? "",
                       submissionCalender: user["submissionCalendar"] ?? "{}",
                     ),
 
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 5),
 
                     BadgesCard(
                       badges: (user["badges"] ?? []) as List,
                     ),
 
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 5),
 
                     //For Testing Widget Purpose
                     // RepaintBoundary(
