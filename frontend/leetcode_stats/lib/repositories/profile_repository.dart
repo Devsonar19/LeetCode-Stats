@@ -13,11 +13,7 @@ class ProfileRepository {
   }
   Future<Map<String, dynamic>> getProfile(String username) async{
     final data = await _service.fetchProfile(username);
-    final profile = data["profile"];
-    if(profile == null){
-      return {};
-    }
-    return profile;
+    return Map<String, dynamic>.from(data);
   }
   Future<Map<String, dynamic>> getDailyQuestion(String username) async{
     final data = await _service.fetchDailyQuestion(username);

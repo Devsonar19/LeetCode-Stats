@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SecProfileDetails extends StatelessWidget {
@@ -9,23 +7,49 @@ class SecProfileDetails extends StatelessWidget {
   const SecProfileDetails({super.key, required this.profile});
 
   Future<void> openUrl(String url) async {
-    final uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
+    url = url.trim();
+    if (url.isEmpty || url == "https://") {
+      debugPrint("Invalid URL: $url");
+      return;
     }
+
+    if (!url.startsWith("http")) {
+      url = "https://$url";
+    }
+
+    final uri = Uri.tryParse(url);
+
+    if (uri == null || uri.host.isEmpty) {
+      debugPrint("Invalid URI: $url");
+      return;
+    }
+
+    debugPrint("Opening URL: $url");
+
+    await launchUrl(
+      uri,
+      mode: LaunchMode.externalApplication,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final user = profile ?? {};
-    final profileDetails = (user["profile"] is Map)
-        ? Map<String, dynamic>.from(user["profile"])
-        : Map<String, dynamic>.from(user);
 
-    final github = user["githubUrl"] ?? "";
-    final linkedin = user["linkedinUrl"] ?? "";
-    final twitter = user["twitterUrl"] ?? "";
-    final skills = profileDetails["skillTags"] ?? [];
+    debugPrint("=== RAW user keys: ${user.keys.toList()}");
+    debugPrint("=== user[profile] type: ${user["profile"]?.runtimeType}");
+    debugPrint("=== user[profile] value: ${user["profile"]}");
+
+
+
+    final innerDetails = (user["profile"] is Map)
+        ? Map<String, dynamic>.from(user["profile"])
+        : <String, dynamic>{};
+
+    final github = (user["githubUrl"] ?? "").toString().trim();
+    final linkedin = (user["linkedinUrl"] ?? "").toString().trim();
+    final twitter = (user["twitterUrl"] ?? "").toString().trim();
+    final skills = innerDetails["skillTags"] ?? [];
     final color = Theme.of(context).colorScheme.onSurface;
 
     return Container(
@@ -55,15 +79,15 @@ class SecProfileDetails extends StatelessWidget {
           const SizedBox(height: 10),
 
           Text(
-            "Country: ${profileDetails["countryName"] ?? "Null"}",
+            "Country: ${innerDetails["countryName"] ?? "Null"}",
           ),
 
           Text(
-            "School: ${profileDetails["school"] ?? "N/A"}",
+            "School: ${innerDetails["school"] ?? "N/A"}",
           ),
 
           Text(
-            "BirthDay: ${profileDetails["birthday"] ?? "N/A"}",
+            "BirthDay: ${innerDetails["birthday"] ?? "N/A"}",
           ),
 
           const SizedBox(height: 10),
@@ -80,7 +104,7 @@ class SecProfileDetails extends StatelessWidget {
             Wrap(
               spacing: 5,
               children:
-              (profileDetails["skillTags"] as List)
+              (innerDetails["skillTags"] as List)
                 .map((data) => Chip(
                     label: Text(
                         data,
@@ -93,35 +117,55 @@ class SecProfileDetails extends StatelessWidget {
                 .toList(),
             )
           else
-            const Text("No Skills"),
+            const Chip(label: Text("No Skills")),
 
           const SizedBox(height: 10),
 
           Row(
             children: [
-              if(github.isNotEmpty)
-                Text("GitHub"),
+              if(github.isNotEmpty) ...[
                 TextButton.icon(
+                  style: TextButton.styleFrom(
+                    side: BorderSide(color: color),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                  ),
                     onPressed: () => openUrl(github),
                     label: Text("GitHub", style: Theme.of(context).textTheme.titleSmall,),
                     icon: FaIcon(FontAwesomeIcons.github, color: color,),
                 ),
+              ],
+              const Spacer(),
 
-              if(linkedin.isNotEmpty)
-                Text("LinkedIn"),
+              if(linkedin.isNotEmpty) ...[
                 TextButton.icon(
+                  style: TextButton.styleFrom(
+                    side: BorderSide(color: color),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                  ),
                     onPressed: () => openUrl(linkedin),
                     label: Text("LinkedIn", style: Theme.of(context).textTheme.titleSmall,),
                     icon: FaIcon(FontAwesomeIcons.linkedin, color: color,),
                 ),
+              ],
+              const Spacer(),
 
-              if(twitter.isNotEmpty)
-                Text("X"),
+              if(twitter.isNotEmpty) ...[
                 TextButton.icon(
+                  style: TextButton.styleFrom(
+                    side: BorderSide(color: color),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                  ),
                     onPressed: () => openUrl(twitter),
                     label: Text("Twitter", style: Theme.of(context).textTheme.titleSmall,),
                     icon: FaIcon(FontAwesomeIcons.xTwitter, color: color,),
-                )
+                ),
+              ],
             ],
           )
 
