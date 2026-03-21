@@ -81,7 +81,7 @@ class AppDrawer extends StatelessWidget {
               secondary: Icon(Icons.dark_mode),
               value: context.watch<ThemeBloc>().state == ThemeMode.dark,
               onChanged: (value){
-                context.read<ThemeBloc>().toggleTheme();
+                context.read<ThemeBloc>().state;
               }
           ),
 

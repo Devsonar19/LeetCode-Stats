@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:leetcode_stats/features/auth/view/login_mobile.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:leetcode_stats/core/theme/theme_bloc.dart';
 import 'app.dart';
+import 'core/theme/theme_event.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  final themeBloc = ThemeBloc();
+  themeBloc.add(LoadThemeEvent());
+  runApp(
+      BlocProvider(
+        create: (context) => themeBloc,
+        child: const MyApp(),
+      )
+  );
 }
 

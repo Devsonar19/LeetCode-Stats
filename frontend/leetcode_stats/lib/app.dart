@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:leetcode_stats/core/theme/theme_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/config/app_routes.dart';
@@ -39,7 +40,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
 
     if(loading){
-      return const MaterialApp(
+      return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           body: Center(
@@ -60,13 +61,13 @@ class _MyAppState extends State<MyApp> {
       ],
       child: Builder(
         builder: (context) {
-          return BlocBuilder<ThemeBloc, ThemeMode>(
-            builder: (context, themeMode) {
+          return BlocBuilder<ThemeBloc, ThemeState>(
+            builder: (context, state) {
               return MaterialApp(
                 home: username == null ? const LoginMobile() : const DashboardMobile(),
                 debugShowCheckedModeBanner: false,
                 title: "LeetCode Stats",
-                themeMode: themeMode,
+                themeMode: state.themeMode,
                 theme: ThemeData.light(),
                 darkTheme: ThemeData.dark(),
                 routes: {
