@@ -60,7 +60,7 @@ class SecProfileDetails extends StatelessWidget {
 
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.20),
+            color: Colors.black.withOpacity(0.20),
             offset: const Offset(0, 4),
           )
         ]
@@ -78,17 +78,34 @@ class SecProfileDetails extends StatelessWidget {
 
           const SizedBox(height: 10),
 
-          Text(
-            "Country: ${innerDetails["countryName"] ?? "Null"}",
+          Row(
+            children: [
+              Text(
+                "COUNTRY ",
+              ),
+              Chip(label: Text("${innerDetails["countryName"] ?? "N/A"}", style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),))
+            ],
           ),
 
-          Text(
-            "School: ${innerDetails["school"] ?? "N/A"}",
+          Row(
+            children: [
+              Text(
+                "SCHOOL ",
+              ),
+              Chip(label: Text("${innerDetails["school"] ?? "N/A"}", style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),))
+            ],
           ),
 
-          Text(
-            "BirthDay: ${innerDetails["birthday"] ?? "N/A"}",
+          Row(
+            children: [
+              Text(
+                "BIRTHDAY ",
+              ),
+              Chip(label: Text("${innerDetails["birthday"] ?? "N/A"}", style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),))
+            ],
           ),
+
+
 
           const SizedBox(height: 10),
 
