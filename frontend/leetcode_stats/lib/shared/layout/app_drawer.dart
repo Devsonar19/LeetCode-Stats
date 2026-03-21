@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leetcode_stats/core/theme/theme_bloc.dart';
 import 'package:leetcode_stats/features/profile_panel/view/profile_detail_screen.dart';
 
+import '../../core/theme/theme_event.dart';
 import '../../features/auth/bloc/auth_bloc.dart';
 import '../../features/auth/bloc/auth_event.dart';
 
@@ -21,6 +22,8 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final profile = userData?["profile"];
+    final themeMode = context.watch<ThemeBloc>().state.themeMode;
+    final isDark = themeMode == ThemeMode.dark;
 
     return Drawer(
       child: ListView(
@@ -79,10 +82,25 @@ class AppDrawer extends StatelessWidget {
           SwitchListTile(
               title: const Text("Dark Mode"),
               secondary: Icon(Icons.dark_mode),
-              value: context.watch<ThemeBloc>().state == ThemeMode.dark,
-              onChanged: (value){
-                context.read<ThemeBloc>().state;
+              value: isDark,
+              onChanged: (_){
+                context.read<ThemeBloc>().add(ToggleThemeEvent());
+              },
+
+              activeThumbColor: Colors.white,
+              inactiveTrackColor: Colors.grey.shade500,
+
+            thumbColor: WidgetStateProperty.resolveWith((states) {
+              return Colors.teal;
+            },),
+
+            thumbIcon: WidgetStateProperty.resolveWith((states) {
+              if(states.contains(WidgetState.selected)){
+                return const Icon(Icons.nightlight_round, color: Colors.white,);
+              }else{
+                return const Icon(Icons.sunny, color: Colors.white,);
               }
+            }),
           ),
 
           ListTile(
