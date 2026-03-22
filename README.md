@@ -27,7 +27,7 @@ A lightweight Flutter app to track your **LeetCode progress** with a clean mobil
 * UI & performance improvements
 
 APK available in **Releases**.
-* https://github.com/Devsonar19/LeetCode-Stats/releases/tag/v0.0.2(Beta)
+* https://github.com/Devsonar19/LeetCode-Stats/releases
 
 
 > [!IMPORTANT]
