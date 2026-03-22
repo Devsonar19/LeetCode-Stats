@@ -4,7 +4,7 @@ A lightweight Flutter app to track your **LeetCode progress** with a clean mobil
 
 | | | |
 |---|---|---|
-| <img src="assests/screenshots/dashboard.png" width="100%"/> | <img src="assests/screenshots/appDrawer.png" width="100%"/> | <img src="assests/screenshots/streakWidget.png" width="100%"/> |
+| <img src="assests/screenshots/main.png" width="100%"/> | <img src="assests/screenshots/drawer.png" width="100%"/> | <img src="assests/screenshots/widget.png" width="100%"/> |
 
 ## 🚀 Features
 
