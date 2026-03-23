@@ -1,14 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DailyQuestionCard extends StatelessWidget {
   final Map<String, dynamic>? question;
   const DailyQuestionCard({super.key, required this.question});
+
+
+  void openUrl(String url) {
+    if(!url.startsWith("http")){
+      url = "https://leetcode.com$url";
+    }
+    launchUrl(Uri.parse(url),);
+  }
 
   @override
   Widget build(BuildContext context) {
     final title = question?["question"]["title"] ?? "Error";
     final date = question?["date"] ?? "Error";
     final difficulty = question?["question"]["difficulty"] ?? "Error";
+    final url = question?["link"] ?? "Error";
+
 
 
     return Container(
@@ -27,15 +39,28 @@ class DailyQuestionCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Today's Question",
-            style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: Text(
+                  "Today's Question",
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const Spacer(flex: 1,),
 
-          const SizedBox(height: 10),
+              IconButton(
+                  onPressed: (){
+                    openUrl(url);
+                  },
+                  icon: FaIcon(FontAwesomeIcons.arrowUpRightFromSquare, size: 15,),
+              ),
+            ],
+          ),
 
           Container(
             padding: const EdgeInsets.symmetric(
