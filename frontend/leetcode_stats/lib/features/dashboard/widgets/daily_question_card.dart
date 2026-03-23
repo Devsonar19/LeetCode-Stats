@@ -7,7 +7,9 @@ class DailyQuestionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final title = question?["question"]["title"] ?? "Error";
-    final date = question?["date"] ?? "";
+    final date = question?["date"] ?? "Error";
+    final difficulty = question?["question"]["difficulty"] ?? "Error";
+
 
     return Container(
       padding: const EdgeInsets.all(10),
@@ -60,11 +62,48 @@ class DailyQuestionCard extends StatelessWidget {
 
                         const SizedBox(height: 5),
 
-                        Text(
-                          date,
-                          style: TextStyle(
-                            fontSize: 10,
-                          ),
+                        Row(
+                          children: [
+                            if(difficulty == 'Easy')...[
+                              Text(
+                                difficulty,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.green
+                                ),
+                              ),
+                            ],
+                            if(difficulty == 'Medium')...[
+                              Text(
+                                difficulty,
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.yellow
+                                ),
+                              ),
+                            ],
+                            if(difficulty == 'Hard')...[
+                              Text(
+                                difficulty,
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.red
+                                ),
+                              ),
+                            ],
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                              child: Text(
+                                date,
+                                style: TextStyle(
+                                  fontSize: 10,
+                                ),
+                              ),
+                            ),
+                          ],
                         )
                       ]
                     )
