@@ -80,7 +80,7 @@ class DailyQuestionCard extends StatelessWidget {
                                 style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.yellow
+                                    color: Colors.amber
                                 ),
                               ),
                             ],
@@ -104,7 +104,9 @@ class DailyQuestionCard extends StatelessWidget {
                               ),
                             ),
                           ],
-                        )
+                        ),
+
+
                       ]
                     )
                 ),
