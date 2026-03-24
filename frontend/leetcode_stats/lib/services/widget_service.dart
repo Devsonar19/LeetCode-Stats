@@ -12,4 +12,10 @@ class WidgetService {
       print("Widget update failed: $e");
     }
   }
+
+  static Future<void> updateHeatMap(String json) async{
+    await _channel.invokeMethod("updateHeatMap", {
+      "heatmap": json,
+    });
+  }
 }

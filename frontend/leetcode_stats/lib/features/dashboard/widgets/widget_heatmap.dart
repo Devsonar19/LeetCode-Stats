@@ -8,7 +8,7 @@ class WidgetHeatmap extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 600,
+      height: 250,
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
@@ -26,7 +26,7 @@ class WidgetHeatmap extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
           itemCount: data.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 7,
+            crossAxisCount: 12,
             crossAxisSpacing: 2,
             mainAxisSpacing: 2,
           ),
@@ -35,7 +35,7 @@ class WidgetHeatmap extends StatelessWidget {
             return Container(
               decoration: BoxDecoration(
                 color: _color(val),
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(5),
               ),
             );
           }

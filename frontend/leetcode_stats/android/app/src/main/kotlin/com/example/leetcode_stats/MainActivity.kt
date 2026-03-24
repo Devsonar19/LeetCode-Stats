@@ -48,6 +48,30 @@ class MainActivity: FlutterActivity() {
 
                     result.success(null)
                 }
+
+                //heatmap logic
+                if (call.method == "updateHeatmap"){
+                    val json = call.argument<String>("heatmap")
+
+                    val prefs = getSharedPreferences("heatmap_glance_prefs", Context.MODE_PRIVATE)
+                    prefs.edit()
+                        .putString("heatmap", json)
+                        .apply()
+
+                    val manager = AppWidgetManager.getInstance(this)
+
+                    val ids = manager.getAppWidgetIds(
+                        ComponentName(this, HeatMapWidgetGlance::class.java)
+                    )
+
+                    val intent = Intent(this, HeatMapWidgetGlance::class.java)
+                    intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+                    intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+
+                    sendBroadcast(intent)
+                    result.success(null)
+
+                }
             }
     }
 }
