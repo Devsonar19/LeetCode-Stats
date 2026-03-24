@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leetcode_stats/core/theme/theme_bloc.dart';
@@ -43,7 +44,7 @@ class AppDrawer extends StatelessWidget {
                     CircleAvatar(
                       radius: 70,
                       backgroundImage: profile != null
-                          ? NetworkImage(profile["userAvatar"])
+                          ? CachedNetworkImageProvider(profile["userAvatar"])
                           : null,
                       child: profile == null
                           ? const Icon(Icons.person, size: 40,)

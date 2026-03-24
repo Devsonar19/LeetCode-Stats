@@ -11,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/utils/image_storage_helper.dart';
 import '../../../../core/utils/streak_calculator.dart';
-import '../../../../services/api_service.dart';
+import '../../../../repositories/profile_repository.dart';
 import '../../../../services/widget_service.dart';
 import '../../../../shared/layout/app_drawer.dart';
 import '../../../auth/bloc/auth_bloc.dart';
@@ -29,6 +29,7 @@ class DashboardMobile extends StatefulWidget {
 class _DashboardMobileState extends State<DashboardMobile> {
 
   Future<Map<String, dynamic>>? profileData;
+  final ProfileRepository _repository  = ProfileRepository();
 
   @override
   void initState() {
@@ -49,7 +50,7 @@ class _DashboardMobileState extends State<DashboardMobile> {
       return;
     }
     setState(() {
-      profileData = ApiService.fetchProfileForApp(username);
+      profileData = _repository.getProfile(username);
     });
   }
 
@@ -162,6 +163,7 @@ class _DashboardMobileState extends State<DashboardMobile> {
           final totalHard = totalStats[3]["count"];
 
           final rank = profile["ranking"];
+          final cachedBadges = _repository.getCacheBadges(user["username"]);
 
           return BlocListener<AuthBloc, AuthState>(
             listener: (context, state) {
@@ -174,6 +176,24 @@ class _DashboardMobileState extends State<DashboardMobile> {
               appBar: AppBar(
                 title: const Text("LeetCode Stats"),
                 centerTitle: true,
+                actions: [
+                  IconButton(
+                    icon: Icon(Icons.refresh),
+                    onPressed: () async {
+                        final store = await SharedPreferences.getInstance();
+                        final username = store.getString("username");
+
+                        if(username == null) return;
+
+                        setState(() {
+                          profileData = _repository.getProfile(
+                            username,
+                            forceRefresh: true,
+                          );
+                        });
+                    },
+                  )
+                ],
               ),
               drawer: AppDrawer(
                 userData: data["profile"],
@@ -235,7 +255,9 @@ class _DashboardMobileState extends State<DashboardMobile> {
                     const SizedBox(height: 5),
 
                     BadgesCard(
-                      badges: (user["badges"] ?? []) as List,
+                      badges: cachedBadges.isNotEmpty
+                          ? cachedBadges
+                          : (user["badges"] ?? []) as List,
                     ),
 
                     const SizedBox(height: 5),

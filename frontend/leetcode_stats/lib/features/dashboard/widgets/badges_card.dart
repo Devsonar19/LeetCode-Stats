@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../badges/pages/badges_view.dart';
@@ -96,13 +97,17 @@ class BadgesCard extends StatelessWidget {
 
 
                       child: icon.isNotEmpty
-                        ? Image.network(
-                            icon,
+                        ? CachedNetworkImage(
+                            imageUrl: icon,
                             height: 80,
                             width: 80,
-                            errorBuilder: (context, error, stackTrace){
-                              return const Icon(Icons.badge, size: 60);
-                            },
+                            placeholder: (context, url) =>
+                                const SizedBox(
+                                  height: 80,
+                                  width: 80,
+                                  child: Center(child: CircularProgressIndicator(strokeWidth: 5,),),
+                                ),
+                            errorWidget: (context, url, error) => const Icon(Icons.badge, size: 60),
                           )
                         : const Icon(Icons.badge, size: 60),
                     ),

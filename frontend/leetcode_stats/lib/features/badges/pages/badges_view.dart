@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class BadgesView extends StatelessWidget {
@@ -55,7 +56,7 @@ class BadgesView extends StatelessWidget {
                     crossAxisCount: 3,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
-                    childAspectRatio: 1,
+                    childAspectRatio: 0.75,
                   ),
                   itemBuilder: (context, i){
                     final badge = badges[i];
@@ -83,14 +84,16 @@ class BadgesView extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          icon.isNotEmpty
-                            ? Image.network(
-                                icon,
-                                height: 50,
-                                width: 50,
-                                errorBuilder: (_, _, _) => const Icon(Icons.badge, size: 50),
-                              )
-                            : const Icon(Icons.badge, size: 50),
+                          Expanded(
+                            child: icon.isNotEmpty
+                              ? CachedNetworkImage(
+                                  imageUrl: icon,
+                                  fit: BoxFit.contain,
+                                  placeholder: (context, url) => Center(child: const CircularProgressIndicator()),
+                                  errorWidget: (context, url, error) => const Icon(Icons.badge, size: 60),
+                                )
+                              : const Icon(Icons.badge, size: 50),
+                          ),
                           const SizedBox(height: 5),
 
 
