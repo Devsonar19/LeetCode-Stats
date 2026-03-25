@@ -34,7 +34,8 @@ class SecProfileDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = profile ?? {};
+    final root = profile ?? {};
+    final user = root["profile"] ?? {};
 
     debugPrint("=== RAW user keys: ${user.keys.toList()}");
     debugPrint("=== user[profile] type: ${user["profile"]?.runtimeType}");
