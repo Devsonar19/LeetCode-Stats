@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../recently_solved/pages/recently_solved_view.dart';
+
 class RecentSolvedCard extends StatelessWidget {
   final List ques;
   const RecentSolvedCard({
@@ -42,7 +44,14 @@ class RecentSolvedCard extends StatelessWidget {
               const Spacer(),
 
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => RecentlySolvedView(recentlySolved: ques),
+                    ),
+                  );
+                },
                 icon: const Icon(Icons.arrow_forward, size: 15,),
               ),
             ],
