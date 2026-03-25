@@ -49,7 +49,7 @@ query getUserDashboard($username: String!) {
     submissionCalendar
   }
 
-  recentSubmissionList(username: $username, limit: 20) {
+  recentSubmissionList(username: $username, limit: 5) {
     title
     titleSlug
     timestamp
@@ -100,6 +100,7 @@ async def get_profile(username: str):
       "recentSolved": recent_solved,
       "allQuestionsCount": result["allQuestionsCount"],
       "activeDailyCodingChallengeQuestion": result["activeDailyCodingChallengeQuestion"],
+      "recentSubmissions": result["recentSubmissionList"],
     }
 
 BADGES_QUERY = """
@@ -147,9 +148,10 @@ async def get_badges(username: str):
 
 RECENT_SOLVED_QUERY = """
 query recentSolved($username: String!) {
-  recentAcSubmissionList(username: $username, limit: 5) {
+  recentAcSubmissionList(username: $username, limit: 10) {
     title
     titleSlug
+    timestamp
   }
 }
 """
