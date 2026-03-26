@@ -57,13 +57,6 @@ query getUserDashboard($username: String!) {
     lang
   }
 
-  userContestRanking(username: $username) {
-    attendedContestsCount
-    rating
-    globalRanking
-    topPercentage
-  }
-
   allQuestionsCount {
     difficulty
     count
@@ -77,6 +70,19 @@ query getUserDashboard($username: String!) {
       titleSlug
       difficulty
     }
+  }
+
+  userContestRanking(username: $username) {
+    attendedContestsCount
+    rating
+    globalRanking
+    topPercentage
+  }
+  allContests {
+    title
+    titleSlug
+    startTime
+    duration
   }
 }
 """
@@ -101,6 +107,8 @@ async def get_profile(username: str):
       "allQuestionsCount": result["allQuestionsCount"],
       "activeDailyCodingChallengeQuestion": result["activeDailyCodingChallengeQuestion"],
       "recentSubmissions": result["recentSubmissionList"],
+      "userContestRanking": result["userContestRanking"],
+      "allContests": result["allContests"][:5], 
     }
 
 BADGES_QUERY = """
