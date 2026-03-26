@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:leetcode_stats/features/contests/views/contest_card.dart';
 import 'package:leetcode_stats/features/dashboard/utils/heatmap_image_generator.dart';
 import 'package:leetcode_stats/features/dashboard/widgets/badges_card.dart';
 import 'package:leetcode_stats/features/dashboard/widgets/stats_card.dart';
@@ -11,6 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/utils/image_storage_helper.dart';
 import '../../../../core/utils/streak_calculator.dart';
+import '../../../../models/contest/contest.dart';
 import '../../../../repositories/profile_repository.dart';
 import '../../../../services/widget_service.dart';
 import '../../../../shared/layout/app_drawer.dart';
@@ -117,6 +119,24 @@ class _DashboardMobileState extends State<DashboardMobile> {
           final totalStats = data["allQuestionsCount"];
 
           final calenderRaw = user["submissionCalendar"];
+
+          //Contest Calculations
+          final contestsRaw = data["allContests"] ?? [];
+          final contests = (contestsRaw as List)
+              .map((e) => Contest.fromJson(e))
+              .toList();
+          final now = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+          Contest? selectedContest;
+
+          for(var contest in contests){
+            if(contest.startTime > now){
+              selectedContest = contest;
+              break;
+            }
+          }
+          selectedContest ??= contests.isNotEmpty ? contests.first : null;
+
+          final contestRanking = data["userContestRanking"];
 
           List<int> heatmapData = [];
 
@@ -262,6 +282,11 @@ class _DashboardMobileState extends State<DashboardMobile> {
 
                     const SizedBox(height: 5),
 
+                    if(selectedContest != null)...[
+                      ContestCard(contest: selectedContest, ranking: contestRanking),
+                    ],
+
+                    const SizedBox(height: 5,),
                     // For Testing Widget Purpose
                     RepaintBoundary(
                       key: HeatmapImageGenerator.repaintKey,
