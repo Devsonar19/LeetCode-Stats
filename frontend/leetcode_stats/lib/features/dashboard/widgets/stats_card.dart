@@ -25,72 +25,74 @@ class StatsCard extends StatelessWidget {
     final totalHard = stats["totalHard"];
 
     final rank = stats["ranking"];
+    final topPercentage = stats["topPercentage"];
 
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(.20),
-            blurRadius: 12,
-            offset: const Offset(0,4),
-          )
-        ],
-      ),
 
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          final size = constraints.maxWidth * 0.45;
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5),
+      child: Container(
+        padding: const EdgeInsets.all(25),
+        decoration: BoxDecoration(
+          color: Theme.of(context).cardColor,
+          borderRadius: BorderRadius.circular(30),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(.20),
+              blurRadius: 12,
+              offset: const Offset(0,4),
+            )
+          ],
+        ),
 
-              Row(
-                children: [
-                  Expanded(
-                      child: _circularProgress(context, totalSolved, totalQuestions),
-                    flex: 3,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final size = constraints.maxWidth * 0.45;
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "Total Problems Solved",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                    fontSize: 13
                   ),
+                ),
+                const SizedBox(height: 10,),
 
-                  const SizedBox(width: 20,),
+                _statsShow(context, totalSolved, totalQuestions, rank, topPercentage),
 
-                  Expanded(
-                      child: _rankBox(context, rank),
-                    flex: 2,
-                  )
-                ],
-              ),
-              const SizedBox(height: 20,),
+                const SizedBox(height: 20,),
 
-              _progressRow(
-                "Easy",
-                easySolved,
-                totalEasy,
-                Colors.teal,
-                context
-              ),
-              const SizedBox(height: 10,),
-              _progressRow(
-                "Medium",
-                mediumSolved,
-                totalMedium,
-                Colors.amber,
-                context
-              ),
-              const SizedBox(height: 10,),
-              _progressRow(
-                "Hard",
-                hardSolved,
-                totalHard,
-                Colors.red,
-                context
-              ),
+                _progressRow(
+                  "Easy",
+                  easySolved,
+                  totalEasy,
+                  Colors.teal,
+                  context
+                ),
+                const SizedBox(height: 10,),
+                _progressRow(
+                  "Medium",
+                  mediumSolved,
+                  totalMedium,
+                  Colors.amber,
+                  context
+                ),
+                const SizedBox(height: 10,),
+                _progressRow(
+                  "Hard",
+                  hardSolved,
+                  totalHard,
+                  Colors.red,
+                  context
+                ),
 
-            ],
-          );
-        },
+              ],
+            );
+          },
+        ),
       ),
     );
   }
@@ -134,6 +136,7 @@ class StatsCard extends StatelessWidget {
             minHeight: 10,
             backgroundColor: Colors.grey.shade500,
             valueColor: AlwaysStoppedAnimation(color),
+            borderRadius: BorderRadius.circular(10),
           ),
         )
       ],
@@ -141,95 +144,88 @@ class StatsCard extends StatelessWidget {
     );
   }
 
-  Widget _circularProgress(
+  Widget _statsShow(
       BuildContext context,
       int solved,
-      int total
+      int total,
+      int rank,
+      num? topPercentage
       ){
-
-    final percent = solved / total;
-
-    return CircularPercentIndicator(
-        radius: MediaQuery.of(context).size.width * 0.28,
-        lineWidth: 10,
-        percent: percent.clamp(0.0, 1.0),
-        animation: true,
-        animateFromLastPercent: true,
-
-      backgroundColor: Theme.of(context).dividerColor.withOpacity(0.5),
-      progressColor: Colors.green,
-      circularStrokeCap: CircularStrokeCap.round,
-
-      center: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+    return
+      Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "$solved / $total",
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.baseline,
+            textBaseline: TextBaseline.alphabetic,
+            children: [
+              Text(
+                "$solved",
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 60
+                ),
+              ),
+              Text(
+                "/ $total",
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                ),
+              ),
+            ],
           ),
-          Text(
-            "Solved",
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Theme.of(context)
-                  .colorScheme
-                  .onSurface
-                  .withOpacity(0.7),
-              fontWeight: FontWeight.w600,
-              fontSize: 20,
-            ),
-          )
-        ],
-      ),
+          const SizedBox(height: 10,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                children: [
+                  Text(
+                    "Global Ranking",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                    )
+                  ),
+                  Text(
+                    "$rank",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                    ),
+                  )
+                ]
+              ),
 
-    );
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.teal.shade700,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.teal.withOpacity(0.10),
+                      blurRadius: 50,
+                      offset: const Offset(0,0),
+                    )
+                  ]
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 30,
+                  vertical: 10,
+                ),
 
-  }
-
-  Widget _rankBox(
-    BuildContext context,
-    int rank,
-      ){
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(15),
-        border: Border.all(
-          color: Theme.of(context).dividerColor.withOpacity(0.5),
-          width: 2,
-        ),
-      ),
-
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            "Ranking",
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Theme.of(context)
-                  .colorScheme
-                  .onSurface
-                  .withOpacity(0.7),
-              fontWeight: FontWeight.w600,
-              fontSize: 20,
-            ),
+                child: Text(
+                  "Top ${topPercentage?.toStringAsFixed(2) ?? "Error"}%",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              )
+            ],
           ),
-          const SizedBox(height: 5,),
-
-          Text(
-            "$rank",
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.bold,
-              fontSize: 15
-            ),
-          )
-
         ],
-      ),
-    );
-
+      );
   }
-
 }

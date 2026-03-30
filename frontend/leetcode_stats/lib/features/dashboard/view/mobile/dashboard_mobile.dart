@@ -264,6 +264,7 @@ class _DashboardMobileState extends State<DashboardMobile> {
                         "totalHard": totalHard,
 
                         "ranking": rank,
+                        "topPercentage": data["userContestRanking"]?["topPercentage"],
                       },
                     ),
 
