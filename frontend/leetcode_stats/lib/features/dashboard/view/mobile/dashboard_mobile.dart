@@ -223,27 +223,29 @@ class _DashboardMobileState extends State<DashboardMobile> {
               body: ListView(
                   padding: const EdgeInsets.all(10),
                   children: [
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).cardColor,
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(.10),
-                            blurRadius: 12,
-                            offset: const Offset(0,4),
-                          )
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Welcome Back".toUpperCase(),
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              color: Colors.green
+                            ),
+                          ),
+                          Text(
+                            "${profile["realName"] ?? "Coder"}",
+                            style: const TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ]
                       ),
-                      child: Text(
-                        "Hello, ${profile["realName"] ?? "Coder"}",
-                        style: const TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
                     ),
+
 
                     const SizedBox(height: 5),
 
