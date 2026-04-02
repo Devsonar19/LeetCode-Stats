@@ -23,7 +23,6 @@ class ContestCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final status = getStatus();
     return InkWell(
       onTap: (){
         Navigator.push(
@@ -57,11 +56,11 @@ class ContestCard extends StatelessWidget {
                 children: [
                   _showStat(
                     "Rating",
-                      (ranking!["rating"] as num)?.toStringAsFixed(0) ?? "-",
+                      (ranking?["rating"] as num)?.toStringAsFixed(0) ?? "-",
                   ),
                   _showStat(
                     "Ranking",
-                      "#${ranking!["globalRanking"] ?? "-"}",
+                      "#${ranking?["globalRanking"] ?? "-"}",
                   ),
                 ],
               ),
@@ -72,11 +71,11 @@ class ContestCard extends StatelessWidget {
                   children: [
                     _showStat(
                       "Top %",
-                      "${(ranking!["topPercentage"] as num?)?.toStringAsFixed(2) ?? "-"}%",
+                      "${(ranking?["topPercentage"] as num?)?.toStringAsFixed(2) ?? "-"}%",
                     ),
                     _showStat(
                       "Contest",
-                      "${ranking!["attendedContestsCount"] ?? "-"}",
+                      "${ranking?["attendedContestsCount"] ?? "-"}",
                     ),
                   ]
                 ),

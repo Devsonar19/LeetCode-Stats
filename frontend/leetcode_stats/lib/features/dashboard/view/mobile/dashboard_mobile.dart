@@ -188,6 +188,9 @@ class _DashboardMobileState extends State<DashboardMobile> {
           return BlocListener<AuthBloc, AuthState>(
             listener: (context, state) {
               if (state is Loggout) {
+                setState(() {
+                  profileData = null;
+                });
                 Navigator.pushNamedAndRemoveUntil(
                     context, "/login", (route) => false);
               }
@@ -286,7 +289,7 @@ class _DashboardMobileState extends State<DashboardMobile> {
                     const SizedBox(height: 10),
 
                     if(selectedContest != null)...[
-                      ContestCard(contest: selectedContest, ranking: contestRanking),
+                      ContestCard(contest: selectedContest, ranking: contestRanking ?? {}),
                     ],
 
                     const SizedBox(height: 5,),
