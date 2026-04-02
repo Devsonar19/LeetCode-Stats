@@ -46,7 +46,6 @@ class StatsCard extends StatelessWidget {
 
         child: LayoutBuilder(
           builder: (context, constraints) {
-            final size = constraints.maxWidth * 0.45;
             return Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,

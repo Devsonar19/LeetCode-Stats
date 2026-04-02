@@ -268,14 +268,14 @@ class _DashboardMobileState extends State<DashboardMobile> {
                       },
                     ),
 
-                    const SizedBox(height: 5),
+                    const SizedBox(height: 10),
 
                     SubmissionHeatmap(
                       username: user["username"] ?? "",
                       submissionCalender: user["submissionCalendar"] ?? "{}",
                     ),
 
-                    const SizedBox(height: 5),
+                    const SizedBox(height: 10),
 
                     BadgesCard(
                       badges: cachedBadges.isNotEmpty
@@ -283,7 +283,7 @@ class _DashboardMobileState extends State<DashboardMobile> {
                           : (user["badges"] ?? []) as List,
                     ),
 
-                    const SizedBox(height: 5),
+                    const SizedBox(height: 10),
 
                     if(selectedContest != null)...[
                       ContestCard(contest: selectedContest, ranking: contestRanking),

@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:leetcode_heatmap/leetcode_heatmap.dart';
 import 'package:leetcode_stats/core/utils/streak_calculator.dart';
@@ -16,11 +14,10 @@ class SubmissionHeatmap extends StatelessWidget {
     final streakData =  calculateStreak(calendar);
 
     return Container(
-      padding: const EdgeInsets.all(20),
-
+      padding: const EdgeInsets.all(25),
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(.20),
@@ -34,29 +31,96 @@ class SubmissionHeatmap extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Activity",
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                      fontSize: 16
+                  ),
+                ),
+              )
+            ],
+          ),
+          const SizedBox(height: 10),
+
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "${streakData.totalSubmissions} Total Submissions",
-                style: const TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
+              Container(
+                padding: const EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.teal.shade300,
+                ),
+
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Total Submissions",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                    ),
+
+                    Text(
+                      "${streakData.totalSubmissions}",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                    ),
+                  ],
                 ),
               ),
 
-              Text(
-                "Max Streak: ${streakData.maxStreak}",
-                style: const TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
+              Container(
+                padding: const EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.teal.shade300,
+                ),
+
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                    "Max Streak",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                    ),
+
+                    Text(
+                      "${streakData.maxStreak}",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                    ),
+                  ],
                 ),
               ),
+
+
+
             ],
           ),
           const SizedBox(height: 10),
 
           SizedBox(
-            height: 200,
             width: double.infinity,
             child: SingleChildScrollView(
               child: LeetCodeHeatmap(
@@ -66,17 +130,16 @@ class SubmissionHeatmap extends StatelessWidget {
                 showStats: false,
                 showLegend: true,
                 autoScrollToEnd: true,
-                weekSpacing: 0,
                 showBorder: true,
                 showDayLabels: true,
+                showMonthLabels: true,
+                weekSpacing: 0,
+                padding: const EdgeInsets.all(5),
               ),
             ),
           ),
-
-
         ],
       ),
     );
-
   }
 }
