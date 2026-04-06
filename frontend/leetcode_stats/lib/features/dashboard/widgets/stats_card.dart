@@ -25,7 +25,9 @@ class StatsCard extends StatelessWidget {
     final totalHard = stats["totalHard"];
 
     final rank = stats["ranking"];
-    final topPercentage = stats["topPercentage"];
+    dynamic topPercentage = stats["topPercentage"] != null
+        ? double.tryParse(stats["topPercentage"].toString())
+        : null;
 
 
     return Padding(
@@ -215,7 +217,9 @@ class StatsCard extends StatelessWidget {
                 ),
 
                 child: Text(
-                  "Top ${topPercentage?.toStringAsFixed(2) ?? "Error"}%",
+                  topPercentage != null
+                      ? "Top ${topPercentage.toStringAsFixed(2)}%"
+                      : "Not Participated",
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,

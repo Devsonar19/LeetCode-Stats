@@ -50,13 +50,13 @@ class ContestCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if(ranking != null) ...[
+            if(ranking != null && ranking!.isNotEmpty) ...[
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _showStat(
                     "Rating",
-                      (ranking?["rating"] as num)?.toStringAsFixed(0) ?? "-",
+                      (ranking?["rating"]).toStringAsFixed(0) ?? "-",
                   ),
                   _showStat(
                     "Ranking",
