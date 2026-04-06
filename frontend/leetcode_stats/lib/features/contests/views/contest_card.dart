@@ -32,12 +32,13 @@ class ContestCard extends StatelessWidget {
           ),
         );
       },
+      hoverColor: Colors.transparent,
 
       child: Container(
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(25),
           boxShadow:[
             BoxShadow(
               color: Colors.black.withOpacity(0.20),
@@ -47,70 +48,73 @@ class ContestCard extends StatelessWidget {
           border: Border.all(color: Colors.grey.withOpacity(0.20)),
         ),
 
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if(ranking != null && ranking!.isNotEmpty) ...[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _showStat(
-                    "Rating",
-                      (ranking?["rating"]).toStringAsFixed(0) ?? "-",
-                  ),
-                  _showStat(
-                    "Ranking",
-                      "#${ranking?["globalRanking"] ?? "-"}",
-                  ),
-                ],
-              ),
-                const SizedBox(height: 10,),
-
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if(ranking != null && ranking!.isNotEmpty) ...[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _showStat(
-                      "Top %",
-                      "${(ranking?["topPercentage"] as num?)?.toStringAsFixed(2) ?? "-"}%",
+                      "Rating",
+                        (ranking?["rating"]).toStringAsFixed(0) ?? "-",
                     ),
                     _showStat(
-                      "Contest",
-                      "${ranking?["attendedContestsCount"] ?? "-"}",
+                      "Ranking",
+                        "#${ranking?["globalRanking"] ?? "-"}",
                     ),
-                  ]
+                  ],
                 ),
+                  const SizedBox(height: 10,),
 
-                const SizedBox(height: 10,),
-                const Divider(),
-                const SizedBox(height: 10,),
-            ],
-
-            Row(
-              children: [
-                Icon(
-                  Icons.emoji_events,
-                  color: Colors.orange,
-                ),
-                const SizedBox(width: 12),
-
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        contest.title,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      _showStat(
+                        "Top %",
+                        "${(ranking?["topPercentage"] as num?)?.toStringAsFixed(2) ?? "-"}%",
                       ),
-                      const SizedBox(height: 4),
-                      Text(formatTime()),
-                    ],
+                      _showStat(
+                        "Contest",
+                        "${ranking?["attendedContestsCount"] ?? "-"}",
+                      ),
+                    ]
                   ),
-                ),
 
-                Chip(label: Text(getStatus()))
+                  const SizedBox(height: 10,),
+                  const Divider(),
+                  const SizedBox(height: 10,),
               ],
-            ),
-          ],
+
+              Row(
+                children: [
+                  Icon(
+                    Icons.emoji_events,
+                    color: Colors.orange,
+                  ),
+                  const SizedBox(width: 12),
+
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          contest.title,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(formatTime()),
+                      ],
+                    ),
+                  ),
+
+                  Chip(label: Text(getStatus()))
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

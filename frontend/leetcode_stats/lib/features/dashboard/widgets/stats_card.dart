@@ -44,6 +44,7 @@ class StatsCard extends StatelessWidget {
               offset: const Offset(0,4),
             )
           ],
+          border: Border.all(color: Colors.grey.withOpacity(0.20)),
         ),
 
         child: LayoutBuilder(
