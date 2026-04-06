@@ -292,12 +292,12 @@ class _DashboardMobileState extends State<DashboardMobile> {
                       ContestCard(contest: selectedContest, ranking: contestRanking ?? {}),
                     ],
 
-                    const SizedBox(height: 5,),
+                    // const SizedBox(height: 5,),
                     // For Testing Widget Purpose
-                    RepaintBoundary(
-                      key: HeatmapImageGenerator.repaintKey,
-                      child: WidgetHeatmap(data: heatmapData),
-                    )
+                    // RepaintBoundary(
+                    //   key: HeatmapImageGenerator.repaintKey,
+                    //   child: WidgetHeatmap(data: heatmapData),
+                    // )
 
                   ]
               ),

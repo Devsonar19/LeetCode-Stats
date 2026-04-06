@@ -121,22 +121,35 @@ class SubmissionHeatmap extends StatelessWidget {
           ),
           const SizedBox(height: 10),
 
-          SizedBox(
-            width: double.infinity,
-            child: SingleChildScrollView(
-              child: LeetCodeHeatmap(
-                username: username,
-                cellSize: 14,
-                cellSpacing: 2,
-                showStats: false,
-                showLegend: true,
-                autoScrollToEnd: true,
-                showBorder: true,
-                showDayLabels: true,
-                showMonthLabels: true,
-                weekSpacing: 0,
-                padding: const EdgeInsets.all(5),
-              ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: LeetCodeHeatmap(
+              errorWidgetBuilder: (error){
+                return Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    children: const [
+                      Icon(Icons.lock_outline, size: 30, color: Colors.grey),
+                      SizedBox(height: 8),
+                      Text("User has hidden submission activity"),
+                    ],
+                  ),
+                );
+              },
+              username: username,
+              cellSize: 14,
+              cellSpacing: 2,
+              showStats: false,
+              showLegend: true,
+              autoScrollToEnd: true,
+              showBorder: true,
+              showDayLabels: true,
+              showMonthLabels: true,
+              weekSpacing: 0,
+              padding: const EdgeInsets.all(5),
             ),
           ),
         ],
