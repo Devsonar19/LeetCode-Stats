@@ -18,8 +18,6 @@ import '../../../../services/widget_service.dart';
 import '../../../../shared/layout/app_drawer.dart';
 import '../../../auth/bloc/auth_bloc.dart';
 import '../../../auth/bloc/auth_state.dart';
-import '../../widgets/widget_heatmap.dart';
-
 
 class DashboardMobile extends StatefulWidget {
   const DashboardMobile({super.key});
