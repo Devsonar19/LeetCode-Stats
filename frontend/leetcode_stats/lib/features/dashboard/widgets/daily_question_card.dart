@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DailyQuestionCard extends StatelessWidget {
@@ -14,6 +13,20 @@ class DailyQuestionCard extends StatelessWidget {
     launchUrl(Uri.parse(url),);
   }
 
+  //using leetcode's colors
+  Color getDifficultyColor(String difficulty) {
+    switch (difficulty.toLowerCase()) {
+      case 'easy':
+        return const Color(0xFF00B8A3);
+      case 'medium':
+        return const Color(0xFFFFC01E);
+      case 'hard':
+        return const Color(0xFFFF375F);
+      default:
+        return Colors.grey;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final title = question?["question"]["title"] ?? "Error";
@@ -21,123 +34,99 @@ class DailyQuestionCard extends StatelessWidget {
     final difficulty = question?["question"]["difficulty"] ?? "Error";
     final url = question?["link"] ?? "Error";
 
-
-
     return Container(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(.20),
+            color: Colors.black.withOpacity(0.09),
             blurRadius: 10,
-            offset: const Offset(0,4),
+            offset: const Offset(0, 4),
           )
         ],
+        border: Border.all(color: Colors.grey.withOpacity(0.15)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
+          Text(
+            "TODAY'S QUESTION",
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w800,
+              letterSpacing: 1.2,
+              color: Colors.brown.shade500,
+            ),
+          ),
+          const SizedBox(height: 8),
+
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.w900,
+              height: 1.2,
+            ),
+          ),
+          const SizedBox(height: 16),
+
           Row(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                decoration: BoxDecoration(
+                  color: getDifficultyColor(difficulty),
+                  borderRadius: BorderRadius.circular(12),
+                ),
                 child: Text(
-                  "Today's Question",
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
+                  difficulty.toUpperCase(),
+                  style: const TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.white,
+                    letterSpacing: 0.5,
                   ),
                 ),
               ),
-              const Spacer(flex: 1,),
-
-              IconButton(
-                  onPressed: (){
-                    openUrl(url);
-                  },
-                  icon: FaIcon(FontAwesomeIcons.arrowUpRightFromSquare, size: 15,),
+              const SizedBox(width: 12),
+              Text(
+                "Date: $date",
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey.shade700,
+                ),
               ),
             ],
           ),
 
-          Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 15,
-              vertical: 10,
-            ),
-            decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.08),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children:[
-                        Text(
-                          title,
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+          const SizedBox(height: 20),
 
-                        const SizedBox(height: 5),
-
-                        Row(
-                          children: [
-                            if(difficulty == 'Easy')...[
-                              Text(
-                                difficulty,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.green
-                                ),
-                              ),
-                            ],
-                            if(difficulty == 'Medium')...[
-                              Text(
-                                difficulty,
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.amber
-                                ),
-                              ),
-                            ],
-                            if(difficulty == 'Hard')...[
-                              Text(
-                                difficulty,
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.red
-                                ),
-                              ),
-                            ],
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 20),
-                              child: Text(
-                                date,
-                                style: TextStyle(
-                                  fontSize: 10,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-
-
-                      ]
-                    )
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () => openUrl(url),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF00A97F),
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25),
                 ),
-              ],
+              ),
+              child: const Text(
+                "SOLVE CHALLENGE",
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
             ),
-          )
+          ),
         ],
       ),
     );
