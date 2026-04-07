@@ -11,88 +11,65 @@ class RecentSolvedCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return Container(
-      padding: const EdgeInsets.all(16),
-      height: 250,
-
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.20),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          )
-        ],
-      ),
-
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              const Text(
-                "Recently Solved",
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-
-              const Spacer(),
-
-              IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => RecentlySolvedView(recentlySolved: ques),
-                    ),
-                  );
-                },
-                icon: const Icon(Icons.arrow_forward, size: 15,),
-              ),
-            ],
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => RecentlySolvedView(recentlySolved: ques),
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: ques.length > 5 ? 5 : ques.length,
-
-              itemBuilder: (context, i) {
-
-                final q = ques[i];
-
-                return Container(
-                  margin: const EdgeInsets.only(bottom: 8),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 10,
-                  ),
-
-                  decoration: BoxDecoration(
-                    color: Colors.grey.withOpacity(0.08),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-
-                  child: Row(
-                    children: [
-
-                      Expanded(
-                        child: Text(
-                          q["title"] ?? "Unknown Question",
-                          style: const TextStyle(fontSize: 14),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
+        );
+      },
+      borderRadius: BorderRadius.circular(20),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        decoration: BoxDecoration(
+          color: Theme.of(context).cardColor,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.06),
+              blurRadius: 15,
+              offset: const Offset(0, 4),
             ),
-          ),
+          ],
+          border: Border.all(color: Colors.grey.withOpacity(0.15)),
+        ),
+        child: Row(
+          children: [
+            // Text Details
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "ACTIVITY",
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.grey.shade500,
+                      letterSpacing: 1.2,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  const Text(
+                    "Recently Solved",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
 
-        ],
+            Icon(
+              Icons.arrow_forward_ios,
+              size: 16,
+              color: Colors.grey.shade600,
+            ),
+          ],
+        ),
       ),
     );
   }
