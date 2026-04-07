@@ -51,10 +51,9 @@ class ContestDetailView extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        foregroundColor: const Color(0xFF1C2B4B),
-        title: const Text(
+        title: Text(
           "Contest Details",
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18, color: Theme.of(context).colorScheme.onSurface),
         ),
         centerTitle: true,
       ),
@@ -66,7 +65,7 @@ class ContestDetailView extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Theme.of(context).cardColor,
                 borderRadius: BorderRadius.circular(25),
                 boxShadow: [
                   BoxShadow(
@@ -75,6 +74,10 @@ class ContestDetailView extends StatelessWidget {
                     offset: const Offset(0, 4),
                   ),
                 ],
+                border: Border.all(
+                  color: Colors.grey.shade100,
+                  width: 0.5,
+                ),
               ),
               child: Column(
                 children: [
@@ -94,10 +97,10 @@ class ContestDetailView extends StatelessWidget {
                   Text(
                     contest.title,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w800,
-                      color: Color(0xFF1C2B4B),
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                   const SizedBox(height: 12),
@@ -131,6 +134,7 @@ class ContestDetailView extends StatelessWidget {
                     title: "Date",
                     value: formatDate(),
                     color: Colors.blue,
+                    context: context,
                   ),
                 ),
                 const SizedBox(width: 15),
@@ -140,6 +144,7 @@ class ContestDetailView extends StatelessWidget {
                     title: "Time",
                     value: formatTimeOnly(),
                     color: Colors.purple,
+                    context: context,
                   ),
                 ),
               ],
@@ -151,6 +156,7 @@ class ContestDetailView extends StatelessWidget {
               value: formatDuration(),
               color: Colors.teal,
               isFullWidth: true,
+              context: context,
             ),
 
             const SizedBox(height: 40),
@@ -193,11 +199,12 @@ class ContestDetailView extends StatelessWidget {
     required String value,
     required MaterialColor color,
     bool isFullWidth = false,
+    required BuildContext context,
   }) {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
@@ -206,6 +213,10 @@ class ContestDetailView extends StatelessWidget {
             offset: const Offset(0, 2),
           ),
         ],
+        border: Border.all(
+          color: Colors.grey.shade100,
+          width: 0.5,
+        ),
       ),
       child: Row(
         mainAxisSize: isFullWidth ? MainAxisSize.max : MainAxisSize.min,
@@ -238,10 +249,10 @@ class ContestDetailView extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   value,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF1C2B4B),
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
                 ),
               ],
