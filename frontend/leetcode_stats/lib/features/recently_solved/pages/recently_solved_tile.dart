@@ -10,7 +10,7 @@ class RecentlySolvedTile extends StatelessWidget {
 
   String formatTime(int timestamp){
     final date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
-    return "${date.day}/${date.month}/${date.year}";
+    return "${date.day}-${date.month}-${date.year}";
   }
 
   void openProblem(String slug)async{
@@ -30,10 +30,10 @@ class RecentlySolvedTile extends StatelessWidget {
       borderRadius: BorderRadius.circular(10),
 
       child: Container(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.10),
@@ -45,9 +45,6 @@ class RecentlySolvedTile extends StatelessWidget {
 
         child: Row(
           children: [
-            const Icon(Icons.check_circle, color: Colors.green,),
-            const SizedBox(width: 10),
-
             Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,7 +52,7 @@ class RecentlySolvedTile extends StatelessWidget {
                     Text(
                       title,
                       style: const TextStyle(
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                     const SizedBox(height: 5),

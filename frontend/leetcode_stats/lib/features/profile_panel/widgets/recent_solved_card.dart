@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../recently_solved/pages/recently_solved_view.dart';
 
 class RecentSolvedCard extends StatelessWidget {
@@ -37,7 +36,6 @@ class RecentSolvedCard extends StatelessWidget {
         ),
         child: Row(
           children: [
-            // Text Details
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
