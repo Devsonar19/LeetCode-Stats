@@ -13,15 +13,20 @@ class RecentlySolvedView extends StatelessWidget {
         centerTitle: true,
       ),
 
-      body: ListView.separated(
-          itemBuilder: (context, index){
-            final item = recentlySolved[index];
-            return RecentlySolvedTile(item: item);
-          },
-          separatorBuilder: (_,_) => const SizedBox(height: 10,),
-          itemCount: recentlySolved.length,
-        padding: const EdgeInsets.all(10),
-      ),
+      body: recentlySolved.isEmpty
+          ? const Padding(
+              padding: EdgeInsets.all(10),
+              child: RecentlySolvedTile(item: {}),
+            )
+          : ListView.separated(
+              itemBuilder: (context, index) {
+                final item = recentlySolved[index];
+                return RecentlySolvedTile(item: item);
+              },
+              separatorBuilder: (_, __) => const SizedBox(height: 10),
+              itemCount: recentlySolved.length,
+              padding: const EdgeInsets.all(10),
+            ),
     );
   }
 }
