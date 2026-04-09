@@ -101,7 +101,6 @@ class _LoginMobileState extends State<LoginMobile> {
                               hintStyle: TextStyle(color: Colors.grey.shade700),
                               prefixIcon: const Icon(Icons.person_outline, color: Colors.black),
                               filled: true,
-                              fillColor: Colors.grey.shade500,
                               contentPadding: const EdgeInsets.symmetric(vertical: 18),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12),
@@ -113,7 +112,7 @@ class _LoginMobileState extends State<LoginMobile> {
                               ),
                             ),
                             style: TextStyle(
-                              color: Theme.of(context).cardColor
+                              color: Theme.of(context).colorScheme.onSurface
                             ),
                           ),
                           const SizedBox(height: 20),
