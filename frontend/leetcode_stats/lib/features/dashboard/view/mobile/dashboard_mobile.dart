@@ -72,6 +72,16 @@ class _DashboardMobileState extends State<DashboardMobile> {
     }
   }
 
+  String _getErrorMessage(dynamic error) {
+    final errorStr = error.toString();
+    if (errorStr.contains('SocketException') || errorStr.contains('Failed host lookup')) {
+      return "Unable to connect to the server. Please check your internet connection.";
+    } else if (errorStr.contains('TimeoutException')) {
+      return "The connection timed out. Please try again.";
+    }
+    return "Something went wrong. Please try again later.";
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -104,7 +114,34 @@ class _DashboardMobileState extends State<DashboardMobile> {
           }
 
           if (snapshot.hasError) {
-            return Center(child: Text("Error: ${snapshot.error.toString()}"));
+            return Scaffold(
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              body: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.wifi_off_rounded, size: 60, color: Colors.grey),
+                      const SizedBox(height: 16),
+                      Text(
+                        _getErrorMessage(snapshot.error),
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 16, color: Colors.grey),
+                      ),
+                      const SizedBox(height: 24),
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          loadProfile();
+                        },
+                        icon: const Icon(Icons.refresh),
+                        label: const Text("Try Again"),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            );
           }
 
           if (!snapshot.hasData) {
