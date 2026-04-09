@@ -5,6 +5,7 @@ import 'package:leetcode_stats/core/theme/theme_bloc.dart';
 import 'package:leetcode_stats/features/profile_panel/view/profile_detail_screen.dart';
 
 import '../../core/theme/theme_event.dart';
+import '../../features/about/about_dev_screen.dart';
 import '../../features/auth/bloc/auth_bloc.dart';
 import '../../features/auth/bloc/auth_event.dart';
 
@@ -102,6 +103,19 @@ class AppDrawer extends StatelessWidget {
                 return const Icon(Icons.sunny, color: Colors.white,);
               }
             }),
+          ),
+
+          ListTile(
+            leading: Icon(Icons.code),
+            title: const Text("About Developer"),
+            onTap: (){
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const AboutDevScreen(),
+                  ),
+              );
+            },
           ),
 
           ListTile(
