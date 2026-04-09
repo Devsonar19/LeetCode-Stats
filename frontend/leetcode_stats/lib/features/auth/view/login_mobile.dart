@@ -26,9 +26,10 @@ class _LoginMobileState extends State<LoginMobile> {
             if(state is AuthFailure){
               showDialog(
                   context: context,
-                  builder: (_) => AlertDialog(
-                    title: const Text("Error"),
-                    content: Text(state.error),
+                  builder: (_) =>
+                  AlertDialog(
+                      title: const Text("Error"),
+                      content: Text(state.error),
                   )
               );
             }
@@ -147,32 +148,6 @@ class _LoginMobileState extends State<LoginMobile> {
                         ],
                       ),
                     ),
-
-
-                    // TextField(
-                    //   controller: controller,
-                    //   decoration: const InputDecoration(
-                    //     hintText: "Username",
-                    //     border: OutlineInputBorder(),
-                    //   ),
-                    // ),
-                    //
-                    // const SizedBox(height: 20),
-                    //
-                    // ElevatedButton(
-                    //     onPressed: (){
-                    //       final username = controller.text.trim();
-                    //       if(username.isEmpty) return;
-                    //
-                    //       context.read<AuthBloc>().add(LoginRequest(username));
-                    //     },
-                    //   style: ElevatedButton.styleFrom(
-                    //     minimumSize: const Size(double.infinity, 50),
-                    //   ),
-                    //     child: state is AuthLoading
-                    //         ? const CircularProgressIndicator()
-                    //         : const Text("Enter"),
-                    // ),
                   ]
                 )
               ),
