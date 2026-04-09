@@ -49,6 +49,9 @@ class _DashboardMobileState extends State<DashboardMobile> {
       );
       return;
     }
+
+    await store.setString("widget_username", username);
+
     setState(() {
       profileData = _repository.getProfile(username);
     });

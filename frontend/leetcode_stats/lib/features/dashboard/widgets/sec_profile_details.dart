@@ -204,9 +204,6 @@ class SecProfileDetails extends StatelessWidget {
               ],
             ],
           ),
-
-
-
         ]
       ),
     );

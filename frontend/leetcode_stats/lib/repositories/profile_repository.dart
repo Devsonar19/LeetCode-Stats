@@ -1,9 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:leetcode_stats/core/caching/cache_service.dart';
-
-import '../core/caching/cache_keys.dart';
 import '../services/api_service.dart';
 import '../services/profile_service.dart';
 
