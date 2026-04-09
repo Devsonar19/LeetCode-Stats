@@ -48,6 +48,7 @@ dependencies:
   hive_flutter: ^1.1.0
   cached_network_image: ^3.4.1
   flutter_launcher_icons: ^0.14.4
+  flutter_native_splash: ^2.4.7
 
 dev_dependencies:
   flutter_test:
@@ -111,3 +112,9 @@ flutter_launcher_icons:
   ios: true
   remove_alpha_ios: true
   image_path: "assets/images/app_logo.png"
+
+flutter_native_splash:
+  android: true
+  ios: true
+  image: "assets/images/app_splash.png"
+  color: "#FFFFFF"
