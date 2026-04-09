@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leetcode_stats/features/contests/views/contest_card.dart';
@@ -9,7 +8,6 @@ import 'package:leetcode_stats/features/dashboard/widgets/stats_card.dart';
 import 'package:leetcode_stats/features/dashboard/widgets/submission_heatmap.dart';
 import 'package:leetcode_stats/features/widget_sync/widget_sync_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../../core/utils/image_storage_helper.dart';
 import '../../../../core/utils/streak_calculator.dart';
 import '../../../../models/contest/contest.dart';
