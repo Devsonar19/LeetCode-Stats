@@ -122,7 +122,33 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.logout),
             title: const Text("Logout"),
             onTap: (){
-              context.read<AuthBloc>().add(LogoutRequest());
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text("Logout"),
+                    content: const Text("Are you sure you want to logout?"),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text("Cancel"),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          context.read<AuthBloc>().add(LogoutRequest());
+                        },
+                        child: const Text(
+                          "Logout",
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              );
             },
           ),
         ],
