@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
+import  'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:leetcode_stats/features/auth/bloc/auth_state.dart';
-
 import '../bloc/auth_bloc.dart';
 import '../bloc/auth_event.dart';
 
@@ -11,6 +9,16 @@ class LoginMobile extends StatefulWidget {
 
   @override
   State<LoginMobile> createState() => _LoginMobileState();
+
+  String _getErrorMessage(dynamic error) {
+    final errorStr = error.toString();
+    if (errorStr.contains('SocketException') || errorStr.contains('Failed host lookup')) {
+      return "Unable to connect to the server. Please check your internet connection.";
+    } else if (errorStr.contains('TimeoutException')) {
+      return "The connection timed out. Please try again.";
+    }
+    return "Something went wrong. Please try again later.";
+  }
 }
 
 class _LoginMobileState extends State<LoginMobile> {
@@ -25,12 +33,60 @@ class _LoginMobileState extends State<LoginMobile> {
 
             if(state is AuthFailure){
               showDialog(
-                  context: context,
-                  builder: (_) =>
-                  AlertDialog(
-                      title: const Text("Error"),
-                      content: Text(state.error),
-                  )
+                context: context,
+                builder: (_) => AlertDialog(
+                  backgroundColor: Colors.white,
+                  surfaceTintColor: Colors.transparent,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  icon: const Icon(
+                    Icons.wifi_off_rounded,
+                    color: Colors.redAccent,
+                    size: 48,
+                  ),
+                  title: const Text(
+                    "Connection Error",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w800,
+                      fontSize: 20,
+                      letterSpacing: -0.5,
+                      color: Colors.black87,
+                    ),
+                  ),
+                  content: Text(
+                    widget._getErrorMessage(state.error),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Colors.black54,
+                      height: 1.5,
+                      fontSize: 14,
+                    ),
+                  ),
+                  actionsAlignment: MainAxisAlignment.center,
+                  actionsPadding: const EdgeInsets.only(bottom: 20, top: 10),
+                  actions: [
+                    ElevatedButton(
+                      onPressed: () => Navigator.pop(context),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black87,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      child: const Text(
+                        "Got it",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               );
             }
 
