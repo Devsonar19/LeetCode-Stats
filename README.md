@@ -1,39 +1,51 @@
-# LeetCode Stats App (Beta)📊
+# LeetCode Stats App 📊
 
-A lightweight Flutter app to track your **LeetCode progress** with a clean mobile dashboard.
+## 🚀 Overview
 
-| | | |
-|---|---|---|
-| <img src="assests/screenshots/main.png" width="100%"/> | <img src="assests/screenshots/drawer.png" width="100%"/> | <img src="assests/screenshots/widget.png" width="100%"/> |
+I built this app because existing solutions felt limited.
 
-## 🚀 Features
+LeetCode provides data—but not a great experience around it. Heatmaps are locked inside the platform, customization is minimal, and there’s no way to bring your progress into your daily workflow.
 
-* Profile dashboard 
-* Easy / Medium / Hard problems solved
-* 5 recently solved questions
-* LeetCode badges
-* GitHub-style submission heatmap
-* Daily question
-* Dark mode
+| Dashboard | Drawer | Widget | Profile |
+|:---:|:---:|:---:|:---:|
+| <img src="assests/screenshots/dashboard_image.png" width="200"/> | <img src="assests/screenshots/drawer_image.png" width="200"/> | <img src="assests/screenshots/widget_image.png" width="200"/> | <img src="assests/screenshots/profile_image.png" width="200"/> |
 
-## ⚠️ Beta Notes
+## ✨ Features
 
-* First login can take **up to ~1 minute** because the backend server (Render free tier) may need to wake up
+### 🧭 Core Experience
+- Redesigned **Dashboard** for better clarity and flow  
+- Smooth and responsive UI built with Flutter  
+- Dark mode support (System as well as Custom)
 
-## 🔜 Coming Soon
+### 📊 Progress Tracking
+- GitHub-style **submission heatmap**  
+- **Daily question**  
+- Easy / Medium / Hard problem breakdown  
+- **LeetCode badges support**
 
-* Home screen widget of Submission HeatMap
-* More detailed profile stats
-* UI & performance improvements
+### 🏆 Contest System
+- Dedicated **Contest Card**
+- Full **Contest Page**
+- **User rating**
+
+### 📱 Home Screen Widget (Major Feature)
+- Heatmap directly on your home screen  
+- Displays **maximum streak**  
+- Built for quick, glanceable insights  
+
+### 🔐 User Experience
+- Improved login flow  
+- Better error handling & fallback states  
+- Stable and reliable data fetching  
+
+### 👨‍💻 Extras
+- **About Developer screen**
+- External profile links (GitHub, LinkedIn, etc.)
 
 APK available in **Releases**.
 * https://github.com/Devsonar19/LeetCode-Stats/releases
 
 
-> [!IMPORTANT]
-> **Status: Early Development** > This project is currently in the very early stages of development. Features are being planned, and the core architecture is being built.
-
----
 
 A cross-platform application designed to provide a **intuitive dashboard** for tracking and visualizing your LeetCode progress. Whether you're preparing for technical interviews or competitive programming, this app helps you stay on top of your game across all your devices.
 
@@ -42,18 +54,9 @@ A cross-platform application designed to provide a **intuitive dashboard** for t
 ## 🚀 Vision
 The goal of this project is to move beyond simple statistics and provide a comprehensive visual representation of your coding journey.
 
-### Key Features (In Progress)
-* **Beautiful Dashboard:** A modern, clean UI focusing on data visualization, including progress charts, category breakdowns, and consistency streaks.
-
-* **True Cross-Platform:** Built to run seamlessly on:
-    * 📱 **Android**
-    * 🍏 **iOS**
-    * 🌐 **Web**
 
 
----
-
-## 🛠️ Tech Stack (Planned)
+## 🛠️ Tech Stack
 * **Frontend:** Flutter (Multi-platform UI)
-* **State Management:** Provider / BLoC
+* **State Management:** BLoC
 * **Backend:** FastAPI, GraphQL
