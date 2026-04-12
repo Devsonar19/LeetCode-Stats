@@ -107,7 +107,7 @@ class AboutDevScreen extends StatelessWidget {
               _buildSocialIcon(
                 context,
                 FontAwesomeIcons.linkedinIn,
-                'https://www.linkedin.com/in/devsonar19/',
+                'https://www.linkedin.com/in/dev-sonar-656677281/',
               ),
               const SizedBox(width: 16),
               _buildSocialIcon(
