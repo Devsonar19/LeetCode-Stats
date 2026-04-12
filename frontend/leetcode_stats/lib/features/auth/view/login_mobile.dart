@@ -16,8 +16,10 @@ class LoginMobile extends StatefulWidget {
       return "Unable to connect to the server. Please check your internet connection.";
     } else if (errorStr.contains('TimeoutException')) {
       return "The connection timed out. Please try again.";
+    } else if(errorStr.contains("User not Found") || errorStr.contains("404") || errorStr.contains("invalid user")){
+      return "Invalid Username";
     }
-    return "Something went wrong. Please try again later.";
+    return errorStr.toString();
   }
 }
 
@@ -41,12 +43,12 @@ class _LoginMobileState extends State<LoginMobile> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   icon: const Icon(
-                    Icons.wifi_off_rounded,
+                    Icons.error_outline_rounded,
                     color: Colors.redAccent,
                     size: 48,
                   ),
                   title: const Text(
-                    "Connection Error",
+                    "Error",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontWeight: FontWeight.w800,
