@@ -81,28 +81,38 @@ class AppDrawer extends StatelessWidget {
             },
           ),
 
-          SwitchListTile(
-              title: const Text("Dark Mode"),
-              secondary: Icon(Icons.dark_mode),
-              value: isDark,
-              onChanged: (_){
-                context.read<ThemeBloc>().add(ToggleThemeEvent());
-              },
-
-              activeThumbColor: Colors.white,
-              inactiveTrackColor: Colors.grey.shade500,
-
-            thumbColor: WidgetStateProperty.resolveWith((states) {
-              return Colors.teal;
-            },),
-
-            thumbIcon: WidgetStateProperty.resolveWith((states) {
-              if(states.contains(WidgetState.selected)){
-                return const Icon(Icons.nightlight_round, color: Colors.white,);
-              }else{
-                return const Icon(Icons.sunny, color: Colors.white,);
-              }
-            }),
+          ListTile(
+            leading: Icon(
+              themeMode == ThemeMode.light
+                  ? Icons.sunny
+                  : themeMode == ThemeMode.dark
+                    ? Icons.nightlight_round
+                    : Icons.brightness_auto,
+            ),
+            title: const Text("Theme"),
+            trailing: DropdownButton<ThemeMode>(
+                value: themeMode,
+                underline: const SizedBox(),
+                items: const[
+                  DropdownMenuItem(
+                    value: ThemeMode.light,
+                    child: Text("Light"),
+                  ),
+                  DropdownMenuItem(
+                    value: ThemeMode.dark,
+                    child: Text("Dark"),
+                  ),
+                  DropdownMenuItem(
+                    value: ThemeMode.system,
+                    child: Text("System"),
+                  ),
+                ],
+                onChanged: (ThemeMode? newTheme){
+                  if(newTheme != null){
+                    context.read<ThemeBloc>().add(ChangeThemeEvent(newTheme));
+                  }
+                }
+            ),
           ),
 
           ListTile(
