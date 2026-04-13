@@ -12,6 +12,18 @@ class ProfileDetailsScreen extends StatelessWidget {
   final String username;
   const ProfileDetailsScreen({super.key, required this.username});
 
+  String _getErrorMessage(dynamic error) {
+    final errorStr = error.toString();
+    if (errorStr.contains('SocketException') || errorStr.contains('Failed host lookup')) {
+      return "Unable to connect to the server. Please check your internet connection.";
+    } else if (errorStr.contains('TimeoutException')) {
+      return "The connection timed out. Please try again.";
+    } else if(errorStr.contains("User not Found") || errorStr.contains("404") || errorStr.contains("invalid user")){
+      return "Invalid Username";
+    }
+    return errorStr.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -44,7 +56,27 @@ class ProfileDetailsScreen extends StatelessWidget {
                 );
               }
               if(state is ProfileDetailsError){
-                return Center(child: Text(state.error));
+                return Scaffold(
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  body: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.wifi_off_rounded, size: 60, color: Colors.grey),
+                          const SizedBox(height: 16),
+                          Text(
+                            _getErrorMessage(state.error),
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(fontSize: 16, color: Colors.grey),
+                          ),
+                          const SizedBox(height: 24),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
               }
               if(state is ProfileDetailsLoaded){
                 return ListView(
