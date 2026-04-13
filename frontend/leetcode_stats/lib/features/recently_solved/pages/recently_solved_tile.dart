@@ -80,6 +80,9 @@ class RecentlySolvedTile extends StatelessWidget {
               offset: const Offset(0, 0),
             )
           ],
+          border: Border.all(
+            color: Colors.grey.withOpacity(0.15),
+          )
         ),
 
         child: Row(
