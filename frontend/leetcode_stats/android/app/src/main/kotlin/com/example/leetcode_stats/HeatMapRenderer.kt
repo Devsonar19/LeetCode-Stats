@@ -5,17 +5,16 @@ import java.util.Calendar
 
 object HeatmapRenderer {
 
-    private val BG            = Color.parseColor("#0D1117")
-    private val COLOR_EMPTY   = Color.parseColor("#161B22")
+    private val BG            = Color.parseColor("#000000")
+    private val COLOR_EMPTY   = Color.parseColor("#2D333B")
     private val COLOR_L1      = Color.parseColor("#0E4429")
     private val COLOR_L2      = Color.parseColor("#006D32")
     private val COLOR_L3      = Color.parseColor("#26A641")
     private val COLOR_L4      = Color.parseColor("#39D353")
-    private val COLOR_FUTURE  = Color.parseColor("#0D1117")
+    private val COLOR_FUTURE  = Color.parseColor("#000000")
     private val COLOR_ACCENT  = Color.parseColor("#39D353")
     private val COLOR_TEXT    = Color.parseColor("#C9D1D9")
     private val COLOR_SUBTEXT = Color.parseColor("#8B949E")
-    private val COLOR_DIVIDER = Color.parseColor("#21262D")
 
     private val PALETTE = intArrayOf(COLOR_EMPTY, COLOR_L1, COLOR_L2, COLOR_L3, COLOR_L4)
 
