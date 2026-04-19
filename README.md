@@ -8,7 +8,7 @@ LeetCode provides data—but not a great experience around it. Heatmaps are lock
 
 | Dashboard | Drawer | Widget | Profile |
 |:---:|:---:|:---:|:---:|
-| <img src="assests/screenshots/dashboard_image.png" width="200"/> | <img src="assests/screenshots/drawer_image.png" width="200"/> | <img src="assests/screenshots/widget_image.png" width="200"/> | <img src="assests/screenshots/profile_image.png" width="200"/> |
+| <img src="assests/screenshots/dashboard_image.png" width="200"/> | <img src="assests/screenshots/new_drawer_image.png" width="200"/> | <img src="assests/screenshots/new_widget_image.png" width="200"/> | <img src="assests/screenshots/profile_image.png" width="200"/> |
 
 ## ✨ Features
 
