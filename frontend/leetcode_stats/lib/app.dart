@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:leetcode_stats/core/responsive/responsive_layout.dart';
 import 'package:leetcode_stats/core/theme/theme_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -7,8 +8,10 @@ import 'core/config/app_routes.dart';
 import 'core/theme/theme_bloc.dart';
 
 import 'features/auth/bloc/auth_bloc.dart';
+import 'features/auth/view/login_desktop.dart';
 import 'features/auth/view/login_mobile.dart';
 
+import 'features/auth/view/login_tablet.dart';
 import 'features/dashboard/view/mobile/dashboard_mobile.dart';
 
 class MyApp extends StatefulWidget {
@@ -64,15 +67,33 @@ class _MyAppState extends State<MyApp> {
           return BlocBuilder<ThemeBloc, ThemeState>(
             builder: (context, state) {
               return MaterialApp(
-                home: username == null ? const LoginMobile() : const DashboardMobile(),
+                home: username == null
+                    ? ResponsiveLayout(
+                    mobile: LoginMobile(),
+                    tablet: LoginTablet(),
+                    desktop: LoginDesktop(),
+                )
+                    : ResponsiveLayout(
+                    mobile: LoginMobile(),
+                    tablet: LoginTablet(),
+                    desktop: LoginDesktop(),
+                ),
                 debugShowCheckedModeBanner: false,
                 title: "LeetCode Stats",
                 themeMode: state.themeMode,
                 theme: ThemeData.light(),
                 darkTheme: ThemeData.dark(),
                 routes: {
-                  AppRoutes.login: (context) => const LoginMobile(),
-                  AppRoutes.dashboard: (context) => const DashboardMobile(),
+                  AppRoutes.login: (context) => const ResponsiveLayout(
+                      mobile: LoginMobile(),
+                      tablet: LoginTablet(),
+                      desktop: LoginDesktop()
+                  ),
+                  AppRoutes.dashboard: (context) => const ResponsiveLayout(
+                      mobile: DashboardMobile(),
+                      tablet: DashboardMobile(),
+                      desktop: DashboardMobile()
+                  ),
                 },
               );
             },

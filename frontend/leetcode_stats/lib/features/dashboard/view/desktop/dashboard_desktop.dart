@@ -72,8 +72,7 @@ class _DashboardTabletState extends State<DashboardDesktop> {
               isDarkMode: false,
               onToggleTheme: (){},
             ),
-            body: ListView(
-                padding: const EdgeInsets.all(10),
+            body: Row(
                 children: [
                   Text(
                     "Hello, ${profile["realName"]}",
