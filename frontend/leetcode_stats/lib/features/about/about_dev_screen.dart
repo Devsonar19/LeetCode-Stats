@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 class AboutDevScreen extends StatelessWidget {
   const AboutDevScreen({super.key});
 
-  Future<void> openUrl(String urlString) async {
+  Future<void> openUrl(String urlString, String url) async {
     final Uri url = Uri.parse(urlString);
     if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
       debugPrint("Could not launch $urlString");
@@ -27,18 +27,55 @@ class AboutDevScreen extends StatelessWidget {
         elevation: 0,
         foregroundColor: colorScheme.onSurface,
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _buildProfileCard(context),
-            const SizedBox(height: 20),
-            _buildSkillsCard(context),
-            const SizedBox(height: 20),
-            _buildProjectCard(context),
-            const SizedBox(height: 40),
-          ],
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1000), // Caps width on ultra-wide screens
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                // --- DESKTOP VIEW ---
+                if (constraints.maxWidth >= 750) {
+                  return Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Left Column: Profile
+                      Expanded(
+                        flex: 4,
+                        child: _buildProfileCard(context),
+                      ),
+                      const SizedBox(width: 20),
+                      // Right Column: Skills & Project
+                      Expanded(
+                        flex: 6,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            _buildSkillsCard(context),
+                            const SizedBox(height: 20),
+                            _buildProjectCard(context),
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
+                }
+
+                // --- MOBILE / APP VIEW ---
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    _buildProfileCard(context),
+                    const SizedBox(height: 20),
+                    _buildSkillsCard(context),
+                    const SizedBox(height: 20),
+                    _buildProjectCard(context),
+                    const SizedBox(height: 40),
+                  ],
+                );
+              },
+            ),
+          ),
         ),
       ),
     );
@@ -102,24 +139,28 @@ class AboutDevScreen extends StatelessWidget {
                 context,
                 FontAwesomeIcons.solidEnvelope,
                 'mailto:devsonar19@outlook.com',
+                'Email',
               ),
               const SizedBox(width: 16),
               _buildSocialIcon(
                 context,
                 FontAwesomeIcons.linkedinIn,
                 'https://www.linkedin.com/in/dev-sonar-656677281/',
+                'LinkedIn',
               ),
               const SizedBox(width: 16),
               _buildSocialIcon(
                 context,
                 FontAwesomeIcons.github,
                 'https://github.com/devsonar19',
+                'GitHub',
               ),
               const SizedBox(width: 16),
               _buildSocialIcon(
                 context,
                 FontAwesomeIcons.code,
                 'https://leetcode.com/Dev_Sonar19/',
+                'LeetCode',
               ),
               const SizedBox(width: 16),
             ],
@@ -129,20 +170,25 @@ class AboutDevScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSocialIcon(BuildContext context, FaIconData icon, String url) {
+  Widget _buildSocialIcon(BuildContext context, FaIconData icon, String url, String tooltipLabel) {
     final colorScheme = Theme.of(context).colorScheme;
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: () => openUrl(url),
-        borderRadius: BorderRadius.circular(50),
-        child: Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: colorScheme.surfaceVariant,
-            shape: BoxShape.circle,
+
+    return Tooltip(
+      message: tooltipLabel, // This is the text that shows on hover
+      waitDuration: const Duration(milliseconds: 300), // Optional: slight delay before showing
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () => openUrl(context as String, url),
+          borderRadius: BorderRadius.circular(50),
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: colorScheme.surfaceVariant,
+              shape: BoxShape.circle,
+            ),
+            child: FaIcon(icon, size: 18, color: colorScheme.onSurfaceVariant),
           ),
-          child: FaIcon(icon, size: 18, color: colorScheme.onSurfaceVariant),
         ),
       ),
     );
