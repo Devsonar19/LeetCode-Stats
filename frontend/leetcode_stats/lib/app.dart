@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leetcode_stats/core/responsive/responsive_layout.dart';
 import 'package:leetcode_stats/core/theme/theme_state.dart';
+import 'package:leetcode_stats/features/dashboard/view/desktop/dashboard_desktop.dart';
+import 'package:leetcode_stats/features/dashboard/view/tablet/dashboard_tablet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/config/app_routes.dart';
@@ -68,15 +70,15 @@ class _MyAppState extends State<MyApp> {
             builder: (context, state) {
               return MaterialApp(
                 home: username == null
-                    ? ResponsiveLayout(
+                    ? const ResponsiveLayout(
                     mobile: LoginMobile(),
                     tablet: LoginTablet(),
                     desktop: LoginDesktop(),
                 )
-                    : ResponsiveLayout(
-                    mobile: LoginMobile(),
-                    tablet: LoginTablet(),
-                    desktop: LoginDesktop(),
+                    : const ResponsiveLayout(
+                    mobile: DashboardMobile(),
+                    tablet: DashboardTablet(),
+                    desktop: DashboardDesktop(),
                 ),
                 debugShowCheckedModeBanner: false,
                 title: "LeetCode Stats",
@@ -91,8 +93,8 @@ class _MyAppState extends State<MyApp> {
                   ),
                   AppRoutes.dashboard: (context) => const ResponsiveLayout(
                       mobile: DashboardMobile(),
-                      tablet: DashboardMobile(),
-                      desktop: DashboardMobile()
+                      tablet: DashboardTablet(),
+                      desktop: DashboardDesktop()
                   ),
                 },
               );
