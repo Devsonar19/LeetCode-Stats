@@ -1,4 +1,4 @@
-# LeetCode Stats App 📊
+# LeetCode Stats 📊
 
 ## 🚀 Overview
 
@@ -6,9 +6,15 @@ I built this app because existing solutions felt limited.
 
 LeetCode provides data—but not a great experience around it. Heatmaps are locked inside the platform, customization is minimal, and there’s no way to bring your progress into your daily workflow.
 
+### Android
 | Dashboard | Drawer | Widget | Profile |
 |:---:|:---:|:---:|:---:|
 | <img src="assests/screenshots/dashboard_image.png" width="200"/> | <img src="assests/screenshots/new_drawer_image.png" width="200"/> | <img src="assests/screenshots/new_widget_image.png" width="200"/> | <img src="assests/screenshots/profile_image.png" width="200"/> |
+
+### Linux
+| Dashboard | Login |
+|:---:|:---:|
+| <img src="assests/screenshots/linux_dashboard.png" width="400"/> | <img src="assests/screenshots/linux_login.png" width="400"/> |
 
 ## ✨ Features
 

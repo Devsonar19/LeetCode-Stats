@@ -24,6 +24,3 @@ target_link_libraries(${BINARY_NAME} PRIVATE flutter)
 target_link_libraries(${BINARY_NAME} PRIVATE PkgConfig::GTK)
 
 target_include_directories(${BINARY_NAME} PRIVATE "${CMAKE_SOURCE_DIR}")
-
-install(FILES ${CMAKE_SOURCE_DIR}/runner/resources/leetcode_stats.desktop
-        DESTINATION share/applications)

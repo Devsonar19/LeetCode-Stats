@@ -1,6 +1,0 @@
-[Desktop Entry]
-Name=LeetCode Stats
-Exec=/home/devsonar/leetcode-stats/frontend/leetcode_stats/build/linux/x64/debug/bundle/leetcode_stats
-Icon=/home/devsonar/leetcode-stats/frontend/leetcode_stats/linux/runner/resources/app_logo.png
-Type=Application
-Categories=Development;
