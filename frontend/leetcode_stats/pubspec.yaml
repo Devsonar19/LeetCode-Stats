@@ -49,6 +49,7 @@ dependencies:
   cached_network_image: ^3.4.1
   flutter_launcher_icons: ^0.14.4
   flutter_native_splash: ^2.4.7
+  icons_launcher: ^3.1.0
 
 dev_dependencies:
   flutter_test:
@@ -118,3 +119,9 @@ flutter_native_splash:
   ios: true
   image: "assets/images/app_splash.png"
   color: "#FFFFFF"
+
+icons_launcher:
+  platforms:
+    linux:
+      enable: true
+      image_path: "assets/images/app_splash.png"
