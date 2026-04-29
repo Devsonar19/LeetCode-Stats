@@ -387,100 +387,107 @@ class _DashboardDesktopState extends State<DashboardDesktop> {
                             recentCard = Center(child: Text("Error: ${detailsState.error}"));
                           }
 
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                                  children: [
-                                    Expanded(
-                                      flex: 4,
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                                        children: [
-                                          Expanded(
-                                            flex: 1,
-                                            child: StatsCard(
-                                              stats: {
-                                                "totalSolved": totalSolved,
-                                                "totalQuestions": totalQuestions,
-                                                "easySolved": easySolved,
-                                                "totalEasy": totalEasy,
-                                                "mediumSolved": mediumSolved,
-                                                "totalMedium": totalMedium,
-                                                "hardSolved": hardSolved,
-                                                "totalHard": totalHard,
-                                                "ranking": rank,
-                                                "topPercentage": data["userContestRanking"]?["topPercentage"],
-                                              },
-                                            ),
-                                          ),
-                                          if (selectedContest != null) ...[
-                                            const SizedBox(height: 8),
-                                            Expanded(
-                                              flex: 1,
-                                              child: ContestCard(
-                                                contest: selectedContest,
-                                                ranking: contestRanking ?? {},
+                          return LayoutBuilder(
+                              builder: (context, constraints) {
+                                const minDashboardHeight = 850.0;
+                                final containerHeight = constraints.maxHeight > minDashboardHeight
+                                    ? constraints.maxHeight
+                                    : minDashboardHeight;
+
+                                return SingleChildScrollView(
+                                  child: SizedBox(
+                                    height: containerHeight,
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                                      children: [
+                                        Expanded(
+                                          flex: 4,
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                                            children: [
+                                              Expanded(
+                                                flex: 1,
+                                                child: StatsCard(
+                                                  stats: {
+                                                    "totalSolved": totalSolved,
+                                                    "totalQuestions": totalQuestions,
+                                                    "easySolved": easySolved,
+                                                    "totalEasy": totalEasy,
+                                                    "mediumSolved": mediumSolved,
+                                                    "totalMedium": totalMedium,
+                                                    "hardSolved": hardSolved,
+                                                    "totalHard": totalHard,
+                                                    "ranking": rank,
+                                                    "topPercentage": data["userContestRanking"]?["topPercentage"],
+                                                  },
+                                                ),
                                               ),
-                                            ),
-                                          ]
-                                        ],
-                                      ),
+                                              if (selectedContest != null) ...[
+                                                const SizedBox(height: 8),
+                                                Expanded(
+                                                  flex: 1,
+                                                  child: ContestCard(
+                                                    contest: selectedContest,
+                                                    ranking: contestRanking ?? {},
+                                                  ),
+                                                ),
+                                              ]
+                                            ],
+                                          ),
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Expanded(
+                                          flex: 4,
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                                            children: [
+                                              Expanded(
+                                                flex: 2,
+                                                child: SubmissionHeatmap(
+                                                  username: user["username"] ?? "",
+                                                  submissionCalender: user["submissionCalendar"] ?? "{}",
+                                                ),
+                                              ),
+                                              const SizedBox(height: 8),
+                                              Expanded(
+                                                flex: 1,
+                                                child: BadgesCard(
+                                                  badges: cachedBadges.isNotEmpty
+                                                      ? cachedBadges
+                                                      : (user["badges"] ?? []) as List,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Expanded(
+                                          flex: 3,
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                                            children: [
+                                              Expanded(
+                                                flex: 3,
+                                                child: dailyCard,
+                                              ),
+                                              const SizedBox(height: 5),
+                                              Expanded(
+                                                flex: 1,
+                                                child: recentCard,
+                                              ),
+                                              const SizedBox(height: 5),
+                                              Expanded(
+                                                flex: 6,
+                                                child: secProfileCard,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    const SizedBox(width: 8),
-                                    Expanded(
-                                      flex: 4,
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                                        children: [
-                                          Expanded(
-                                            flex: 2,
-                                            child: SubmissionHeatmap(
-                                              username: user["username"] ?? "",
-                                              submissionCalender: user["submissionCalendar"] ?? "{}",
-                                            ),
-                                          ),
-                                          const SizedBox(height: 8),
-                                          Expanded(
-                                            flex: 1,
-                                            child: BadgesCard(
-                                              badges: cachedBadges.isNotEmpty
-                                                  ? cachedBadges
-                                                  : (user["badges"] ?? []) as List,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const SizedBox(width: 8),
-                                    Expanded(
-                                      flex: 3,
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                                        children: [
-                                          Expanded(
-                                            flex: 3,
-                                            child: dailyCard,
-                                          ),
-                                          const SizedBox(height: 5),
-                                          Expanded(
-                                            flex: 1,
-                                            child: recentCard,
-                                          ),
-                                          const SizedBox(height: 5),
-                                          Expanded(
-                                            flex: 6,
-                                            child: secProfileCard,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                                  ),
+                                );
+                              }
                           );
                         },
                       ),
