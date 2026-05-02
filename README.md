@@ -1,10 +1,27 @@
 # LeetCode Stats 📊
 
-## 🚀 Overview
-
 I built this app because existing solutions felt limited.
 
-LeetCode provides data—but not a great experience around it. Heatmaps are locked inside the platform, customization is minimal, and there’s no way to bring your progress into your daily workflow.
+LeetCode provides data, but not a great experience around it. Heatmaps are locked inside the platform and there’s no way to bring your progress into your daily workflow.
+
+## 📦 Download LeetCode Stats
+
+<p align="center">
+
+<a href="https://github.com/Devsonar19/LeetCode-Stats/releases/tag/windows_v1.0.0">
+  <img src="https://img.shields.io/badge/Windows-Download%20Installer-0078D6?style=for-the-badge&logo=windows&logoColor=white" />
+</a>
+
+<a href="https://github.com/Devsonar19/LeetCode-Stats/releases/tag/linux_v1.0.0">
+  <img src="https://img.shields.io/badge/Linux-Download%20Build-FCC624?style=for-the-badge&logo=linux&logoColor=white" />
+</a>
+
+<a href="https://github.com/Devsonar19/LeetCode-Stats/releases/tag/v1.0.1">
+  <img src="https://img.shields.io/badge/Android-Download%20APK-3DDC84?style=for-the-badge&logo=android&logoColor=white" />
+</a>
+
+</p>
+
 
 ### Android
 | Dashboard | Drawer | Widget | Profile |
@@ -48,14 +65,6 @@ LeetCode provides data—but not a great experience around it. Heatmaps are lock
 - **About Developer screen**
 - External profile links (GitHub, LinkedIn, etc.)
 
-APK available in **Releases**.
-* https://github.com/Devsonar19/LeetCode-Stats/releases
-
-
-
-A cross-platform application designed to provide a **intuitive dashboard** for tracking and visualizing your LeetCode progress. Whether you're preparing for technical interviews or competitive programming, this app helps you stay on top of your game across all your devices.
-
----
 
 ## 🚀 Vision
 The goal of this project is to move beyond simple statistics and provide a comprehensive visual representation of your coding journey.
@@ -63,6 +72,6 @@ The goal of this project is to move beyond simple statistics and provide a compr
 
 
 ## 🛠️ Tech Stack
-* **Frontend:** Flutter (Multi-platform UI)
+* **Frontend:** Flutter 
 * **State Management:** BLoC
 * **Backend:** FastAPI, GraphQL
