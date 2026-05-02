@@ -258,7 +258,7 @@ class _DashboardDesktopState extends State<DashboardDesktop> {
                   title: Row(
                     children: [
                       const Text(
-                        "LeetCode Stats Web",
+                        "LeetCode Stats Desktop",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(width: 32),

@@ -26,7 +26,7 @@ class ResponsiveLayout extends StatelessWidget {
       return desktop;
     }
 
-    if(width >= 600){
+    if(width >= 500){
       return tablet;
     }
 
