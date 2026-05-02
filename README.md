@@ -1,4 +1,8 @@
-# LeetCode Stats 📊
+<h1>
+    LeetCode Stats
+  <img src="frontend/leetcode_stats/assets/images/app_logo.png" width="32" style="vertical-align: middle; margin-right: 8px;" />
+</h1>
+
 
 I built this app because existing solutions felt limited.
 
